@@ -18,6 +18,63 @@ class SignUpScreen extends StatelessWidget {
               height: 100,
             ),
           ),
+          const Center(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Hello, Sign Up !',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: 'First name',
+                      border: OutlineInputBorder(),
+                    ),
+                    // keyboardType: TextInputType.emailAddress,
+                  ),
+                  SizedBox(height: 16),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Last name',
+                      border: OutlineInputBorder(),
+                    ),
+                    // keyboardType: TextInputType.emailAddress,
+                  ),
+                  SizedBox(height: 16),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Email address',
+                      border: OutlineInputBorder(),
+                    ),
+                    keyboardType: TextInputType.emailAddress,
+                  ),
+                  SizedBox(height: 16),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Password',
+                      border: OutlineInputBorder(),
+                    ),
+                    // keyboardType: TextInputType.emailAddress,
+                  ),
+                  SizedBox(height: 16),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Confirm password',
+                      border: OutlineInputBorder(),
+                    ),
+                    // keyboardType: TextInputType.emailAddress,
+                  ),
+                ],
+              ),
+            ),
+          )
         ],
       ),
     );
