@@ -14,8 +14,8 @@ class LoginScreen extends StatelessWidget {
             left: 20,
             child: Image.asset(
               'assets/images/logo.png',
-              width: 120,
-              height: 120,
+              width: 100,
+              height: 100,
             ),
           ),
           // Centered Column for Login Form
