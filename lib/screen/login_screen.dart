@@ -1,3 +1,4 @@
+import 'package:final_assignment/screen/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -73,7 +74,11 @@ class LoginScreen extends StatelessWidget {
                       const Text("Don't have an account?"),
                       TextButton(
                         onPressed: () {
-                          // Navigate to sign up screen
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const SignUpScreen()),
+                          );
                         },
                         child: const Text(
                           'Sign Up',
@@ -104,20 +109,31 @@ class LoginScreen extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 20),
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CircleAvatar(
-                        radius: 20,
-                        backgroundImage:
-                            AssetImage('assets/icons/facebook.png'),
-                        // backgroundColor: Colors.transparent,
+                      GestureDetector(
+                        onTap: () {
+                          //Action
+                        },
+                        child: const CircleAvatar(
+                          radius: 20,
+                          backgroundImage:
+                              AssetImage('assets/images/facebook.png'),
+                          // backgroundColor: Colors.transparent,
+                        ),
                       ),
-                      SizedBox(width: 40), // Adjust spacing as needed
-                      CircleAvatar(
-                        radius: 20,
-                        backgroundImage: AssetImage('assets/icons/gmail.png'),
-                        // backgroundColor: Colors.transparent,
+                      const SizedBox(width: 40), // Adjust spacing as needed
+                      GestureDetector(
+                        onTap: () {
+                          //Action
+                        },
+                        child: const CircleAvatar(
+                          radius: 20,
+                          backgroundImage:
+                              AssetImage('assets/images/gmail.png'),
+                          // backgroundColor: Colors.transparent,
+                        ),
                       ),
                     ],
                   ),
