@@ -87,7 +87,7 @@ class SignUpScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text("Already an account?"),
+                      const Text("Already have an account?"),
                       TextButton(
                         onPressed: () {
                           Navigator.push(
@@ -99,6 +99,56 @@ class SignUpScreen extends StatelessWidget {
                         child: const Text(
                           'Sign In',
                           style: TextStyle(color: Colors.brown),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  const Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Divider(
+                          thickness: 1,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Text('or', selectionColor: Colors.grey),
+                      ),
+                      Expanded(
+                        child: Divider(
+                          thickness: 1,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          //Action
+                        },
+                        child: const CircleAvatar(
+                          radius: 20,
+                          backgroundImage:
+                              AssetImage('assets/images/facebook.png'),
+                          // backgroundColor: Colors.transparent,
+                        ),
+                      ),
+                      const SizedBox(width: 40), // Adjust spacing as needed
+                      GestureDetector(
+                        onTap: () {
+                          //Action
+                        },
+                        child: const CircleAvatar(
+                          radius: 20,
+                          backgroundImage:
+                              AssetImage('assets/images/gmail.png'),
+                          // backgroundColor: Colors.transparent,
                         ),
                       ),
                     ],
