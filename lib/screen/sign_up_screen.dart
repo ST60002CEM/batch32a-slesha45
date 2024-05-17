@@ -1,3 +1,4 @@
+import 'package:final_assignment/screen/login_screen.dart';
 import 'package:flutter/material.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -18,56 +19,89 @@ class SignUpScreen extends StatelessWidget {
               height: 100,
             ),
           ),
-          const Center(
+          Center(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24.0),
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     'Hello, Sign Up !',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 16),
-                  TextField(
+                  const SizedBox(height: 16),
+                  const TextField(
                     decoration: InputDecoration(
                       labelText: 'First name',
                       border: OutlineInputBorder(),
                     ),
                   ),
-                  SizedBox(height: 16),
-                  TextField(
+                  const SizedBox(height: 16),
+                  const TextField(
                     decoration: InputDecoration(
                       labelText: 'Last name',
                       border: OutlineInputBorder(),
                     ),
                   ),
-                  SizedBox(height: 16),
-                  TextField(
+                  const SizedBox(height: 16),
+                  const TextField(
                     decoration: InputDecoration(
                       labelText: 'Email address',
                       border: OutlineInputBorder(),
                     ),
                     keyboardType: TextInputType.emailAddress,
                   ),
-                  SizedBox(height: 16),
-                  TextField(
+                  const SizedBox(height: 16),
+                  const TextField(
                     decoration: InputDecoration(
                       labelText: 'Password',
                       border: OutlineInputBorder(),
                     ),
                     obscureText: true,
                   ),
-                  SizedBox(height: 16),
-                  TextField(
+                  const SizedBox(height: 16),
+                  const TextField(
                     decoration: InputDecoration(
                       labelText: 'Confirm password',
                       border: OutlineInputBorder(),
                     ),
                     obscureText: true,
+                  ),
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: () {
+                      // Add sign up logic here
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.brown, // Button color
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 50, vertical: 15),
+                    ),
+                    child: const Text('Sign Up',
+                        style: TextStyle(color: Colors.white)),
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Already an account?"),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const LoginScreen()),
+                          );
+                        },
+                        child: const Text(
+                          'Sign In',
+                          style: TextStyle(color: Colors.brown),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
