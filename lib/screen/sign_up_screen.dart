@@ -37,7 +37,6 @@ class SignUpScreen extends StatelessWidget {
                       labelText: 'First name',
                       border: OutlineInputBorder(),
                     ),
-                    // keyboardType: TextInputType.emailAddress,
                   ),
                   SizedBox(height: 16),
                   TextField(
@@ -45,7 +44,6 @@ class SignUpScreen extends StatelessWidget {
                       labelText: 'Last name',
                       border: OutlineInputBorder(),
                     ),
-                    // keyboardType: TextInputType.emailAddress,
                   ),
                   SizedBox(height: 16),
                   TextField(
@@ -61,7 +59,7 @@ class SignUpScreen extends StatelessWidget {
                       labelText: 'Password',
                       border: OutlineInputBorder(),
                     ),
-                    // keyboardType: TextInputType.emailAddress,
+                    obscureText: true,
                   ),
                   SizedBox(height: 16),
                   TextField(
@@ -69,7 +67,7 @@ class SignUpScreen extends StatelessWidget {
                       labelText: 'Confirm password',
                       border: OutlineInputBorder(),
                     ),
-                    // keyboardType: TextInputType.emailAddress,
+                    obscureText: true,
                   ),
                 ],
               ),
