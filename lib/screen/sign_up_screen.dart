@@ -5,6 +5,21 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+      body: Stack(
+        children: [
+          // Positioned Logo
+          Positioned(
+            top: 40,
+            left: 20,
+            child: Image.asset(
+              'assets/images/logo.png',
+              width: 100,
+              height: 100,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
