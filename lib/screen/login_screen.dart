@@ -62,7 +62,8 @@ class LoginScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 50, vertical: 15),
                     ),
-                    child: const Text('Sign In'),
+                    child: const Text('Sign In',
+                        style: TextStyle(color: Colors.white)),
                   ),
                   const SizedBox(height: 20),
                   // Sign Up Text
@@ -74,7 +75,10 @@ class LoginScreen extends StatelessWidget {
                         onPressed: () {
                           // Navigate to sign up screen
                         },
-                        child: const Text('Sign Up'),
+                        child: const Text(
+                          'Sign Up',
+                          style: TextStyle(color: Colors.brown),
+                        ),
                       ),
                     ],
                   ),
