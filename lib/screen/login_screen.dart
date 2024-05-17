@@ -82,6 +82,45 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ],
                   ),
+                  const SizedBox(height: 20),
+                  const Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Divider(
+                          thickness: 1,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Text('or', selectionColor: Colors.grey),
+                      ),
+                      Expanded(
+                        child: Divider(
+                          thickness: 1,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircleAvatar(
+                        radius: 20,
+                        backgroundImage:
+                            AssetImage('assets/icons/facebook.png'),
+                        // backgroundColor: Colors.transparent,
+                      ),
+                      SizedBox(width: 40), // Adjust spacing as needed
+                      CircleAvatar(
+                        radius: 20,
+                        backgroundImage: AssetImage('assets/icons/gmail.png'),
+                        // backgroundColor: Colors.transparent,
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
