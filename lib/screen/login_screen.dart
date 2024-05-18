@@ -16,10 +16,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
 
   void _login() {
-    final loginModel = LoginModel(
-      email: _emailController.text,
-      password: _passwordController.text,
-    );
 
     if (_formKey.currentState?.validate() ?? false) {
       print('Login successful');
