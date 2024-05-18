@@ -1,15 +1,42 @@
+import 'package:final_assignment/model/login_model.dart';
+import 'package:final_assignment/screen/dashboard_screen.dart';
 import 'package:final_assignment/screen/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  void _login() {
+    final loginModel = LoginModel(
+      email: _emailController.text,
+      password: _passwordController.text,
+    );
+
+    if (_formKey.currentState?.validate() ?? false) {
+      print('Login successful');
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const DashboardScreen()),
+      );
+    } else {
+      setState(() {});
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
-          // Positioned Logo
           Positioned(
             top: 40,
             left: 20,
@@ -19,130 +46,155 @@ class LoginScreen extends StatelessWidget {
               height: 100,
             ),
           ),
-          // Centered Column for Login Form
           Center(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Welcome Text
-                  const Text(
-                    'Welcome Back, Login !',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Welcome Back, Login !',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 20),
-                  // Email TextField
-                  const TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Enter your email below:',
-                      border: OutlineInputBorder(),
+                    const SizedBox(height: 20),
+                    TextFormField(
+                      controller: _emailController,
+                      decoration: const InputDecoration(
+                        labelText: 'Enter your email',
+                        border: OutlineInputBorder(),
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+                      validator: (value) {
+                        final emailError =
+                            LoginModel(email: value ?? '', password: '')
+                                .validateEmail();
+                        if (emailError != null) {
+                          return emailError;
+                        }
+                        return null;
+                      },
                     ),
-                    keyboardType: TextInputType.emailAddress,
-                  ),
-                  const SizedBox(height: 20),
-                  // Password TextField
-                  const TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Password:',
-                      border: OutlineInputBorder(),
+                    const SizedBox(height: 20),
+                    TextFormField(
+                      controller: _passwordController,
+                      decoration: const InputDecoration(
+                        labelText: 'Password',
+                        border: OutlineInputBorder(),
+                      ),
+                      obscureText: true,
+                      validator: (value) {
+                        final passwordError =
+                            LoginModel(email: '', password: value ?? '')
+                                .validatePassword();
+                        if (passwordError != null) {
+                          return passwordError;
+                        }
+                        return null;
+                      },
                     ),
-                    obscureText: true,
-                  ),
-                  const SizedBox(height: 20),
-                  // Sign In Button
-                  ElevatedButton(
-                    onPressed: () {
-                      // Add sign in logic here
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.brown, // Button color
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 50, vertical: 15),
+                    const SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: _login,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.brown,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 50,
+                          vertical: 15,
+                        ),
+                      ),
+                      child: const Text(
+                        'Sign In',
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
-                    child: const Text('Sign In',
-                        style: TextStyle(color: Colors.white)),
-                  ),
-                  const SizedBox(height: 20),
-                  // Sign Up Text
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text("Don't have an account?"),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const SignUpScreen()),
-                          );
-                        },
-                        child: const Text(
-                          'Sign Up',
-                          style: TextStyle(color: Colors.brown),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text("Don't have an account?"),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const SignUpScreen(),
+                              ),
+                            );
+                          },
+                          child: const Text(
+                            'Sign Up',
+                            style: TextStyle(color: Colors.brown),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  const Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Divider(
-                          thickness: 1,
-                          color: Colors.grey,
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    const Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: Divider(
+                            thickness: 1,
+                            color: Colors.grey,
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Text('or', selectionColor: Colors.grey),
-                      ),
-                      Expanded(
-                        child: Divider(
-                          thickness: 1,
-                          color: Colors.grey,
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10.0),
+                          child: Text('or', selectionColor: Colors.grey),
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          //Action
-                        },
-                        child: const CircleAvatar(
-                          radius: 20,
-                          backgroundImage:
-                              AssetImage('assets/images/facebook.png'),
-                          // backgroundColor: Colors.transparent,
+                        Expanded(
+                          child: Divider(
+                            thickness: 1,
+                            color: Colors.grey,
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 40), // Adjust spacing as needed
-                      GestureDetector(
-                        onTap: () {
-                          //Action
-                        },
-                        child: const CircleAvatar(
-                          radius: 20,
-                          backgroundImage:
-                              AssetImage('assets/images/gmail.png'),
-                          // backgroundColor: Colors.transparent,
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            //Action
+                          },
+                          child: const CircleAvatar(
+                            radius: 20,
+                            backgroundImage:
+                                AssetImage('assets/images/facebook.png'),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                        const SizedBox(width: 40),
+                        GestureDetector(
+                          onTap: () {
+                            //Action
+                          },
+                          child: const CircleAvatar(
+                            radius: 20,
+                            backgroundImage:
+                                AssetImage('assets/images/gmail.png'),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 }
