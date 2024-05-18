@@ -1,15 +1,41 @@
+import 'package:final_assignment/model/sign_up_model.dart';
+import 'package:final_assignment/screen/dashboard_screen.dart';
 import 'package:final_assignment/screen/login_screen.dart';
 import 'package:flutter/material.dart';
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
+
+  @override
+  _SignUpScreenState createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final _firstNameController = TextEditingController();
+  final _lastNameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
+
+  void _signUp() {
+    if (_formKey.currentState?.validate() ?? false) {
+      print('Sign Up successful');
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const DashboardScreen()),
+      );
+    } else {
+      // Show validation errors
+      setState(() {});
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
-          // Positioned Logo
           Positioned(
             top: 40,
             left: 20,
@@ -22,143 +48,227 @@ class SignUpScreen extends StatelessWidget {
           Center(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    'Hello, Sign Up !',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Hello, Sign Up !',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  const TextField(
-                    decoration: InputDecoration(
-                      labelText: 'First name',
-                      border: OutlineInputBorder(),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      controller: _firstNameController,
+                      decoration: const InputDecoration(
+                        labelText: 'First name',
+                        border: OutlineInputBorder(),
+                      ),
+                      validator: (value) {
+                        final firstNameError = SignUpModel(
+                          firstName: value ?? '',
+                          lastName: '',
+                          email: '',
+                          password: '',
+                          confirmPassword: '',
+                        ).validateFirstName();
+                        if (firstNameError != null) {
+                          return firstNameError;
+                        }
+                        return null;
+                      },
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  const TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Last name',
-                      border: OutlineInputBorder(),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      controller: _lastNameController,
+                      decoration: const InputDecoration(
+                        labelText: 'Last name',
+                        border: OutlineInputBorder(),
+                      ),
+                      validator: (value) {
+                        final lastNameError = SignUpModel(
+                          firstName: '',
+                          lastName: value ?? '',
+                          email: '',
+                          password: '',
+                          confirmPassword: '',
+                        ).validateLastName();
+                        if (lastNameError != null) {
+                          return lastNameError;
+                        }
+                        return null;
+                      },
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  const TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Email address',
-                      border: OutlineInputBorder(),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      controller: _emailController,
+                      decoration: const InputDecoration(
+                        labelText: 'Email address',
+                        border: OutlineInputBorder(),
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+                      validator: (value) {
+                        final emailError = SignUpModel(
+                          firstName: '',
+                          lastName: '',
+                          email: value ?? '',
+                          password: '',
+                          confirmPassword: '',
+                        ).validateEmail();
+                        if (emailError != null) {
+                          return emailError;
+                        }
+                        return null;
+                      },
                     ),
-                    keyboardType: TextInputType.emailAddress,
-                  ),
-                  const SizedBox(height: 16),
-                  const TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Password',
-                      border: OutlineInputBorder(),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      controller: _passwordController,
+                      decoration: const InputDecoration(
+                        labelText: 'Password',
+                        border: OutlineInputBorder(),
+                      ),
+                      obscureText: true,
+                      validator: (value) {
+                        final passwordError = SignUpModel(
+                          firstName: '',
+                          lastName: '',
+                          email: '',
+                          password: value ?? '',
+                          confirmPassword: '',
+                        ).validatePassword();
+                        if (passwordError != null) {
+                          return passwordError;
+                        }
+                        return null;
+                      },
                     ),
-                    obscureText: true,
-                  ),
-                  const SizedBox(height: 16),
-                  const TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Confirm password',
-                      border: OutlineInputBorder(),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      controller: _confirmPasswordController,
+                      decoration: const InputDecoration(
+                        labelText: 'Confirm password',
+                        border: OutlineInputBorder(),
+                      ),
+                      obscureText: true,
+                      validator: (value) {
+                        final confirmPasswordError = SignUpModel(
+                          firstName: '',
+                          lastName: '',
+                          email: '',
+                          password: _passwordController.text,
+                          confirmPassword: value ?? '',
+                        ).validateConfirmPassword();
+                        if (confirmPasswordError != null) {
+                          return confirmPasswordError;
+                        }
+                        return null;
+                      },
                     ),
-                    obscureText: true,
-                  ),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Add sign up logic here
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.brown, // Button color
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 50, vertical: 15),
-                    ),
-                    child: const Text('Sign Up',
-                        style: TextStyle(color: Colors.white)),
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text("Already have an account?"),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const LoginScreen()),
-                          );
-                        },
-                        child: const Text(
-                          'Sign In',
-                          style: TextStyle(color: Colors.brown),
+                    const SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: _signUp,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.brown,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 50,
+                          vertical: 15,
                         ),
                       ),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  const Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Divider(
-                          thickness: 1,
-                          color: Colors.grey,
+                      child: const Text(
+                        'Sign Up',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text("Already have an account?"),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const LoginScreen(),
+                              ),
+                            );
+                          },
+                          child: const Text(
+                            'Sign In',
+                            style: TextStyle(color: Colors.brown),
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Text('or', selectionColor: Colors.grey),
-                      ),
-                      Expanded(
-                        child: Divider(
-                          thickness: 1,
-                          color: Colors.grey,
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    const Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: Divider(
+                            thickness: 1,
+                            color: Colors.grey,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          //Action
-                        },
-                        child: const CircleAvatar(
-                          radius: 20,
-                          backgroundImage:
-                              AssetImage('assets/images/facebook.png'),
-                          // backgroundColor: Colors.transparent,
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10.0),
+                          child: Text('or', selectionColor: Colors.grey),
                         ),
-                      ),
-                      const SizedBox(width: 40), // Adjust spacing as needed
-                      GestureDetector(
-                        onTap: () {
-                          //Action
-                        },
-                        child: const CircleAvatar(
-                          radius: 20,
-                          backgroundImage:
-                              AssetImage('assets/images/gmail.png'),
-                          // backgroundColor: Colors.transparent,
+                        Expanded(
+                          child: Divider(
+                            thickness: 1,
+                            color: Colors.grey,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            // Action
+                          },
+                          child: const CircleAvatar(
+                            radius: 20,
+                            backgroundImage:
+                                AssetImage('assets/images/facebook.png'),
+                          ),
+                        ),
+                        const SizedBox(width: 40),
+                        GestureDetector(
+                          onTap: () {
+                            // Action
+                          },
+                          child: const CircleAvatar(
+                            radius: 20,
+                            backgroundImage:
+                                AssetImage('assets/images/gmail.png'),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
   }
 }
