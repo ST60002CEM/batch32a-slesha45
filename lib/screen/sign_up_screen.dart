@@ -1,5 +1,4 @@
 import 'package:final_assignment/model/sign_up_model.dart';
-import 'package:final_assignment/screen/dashboard_screen.dart';
 import 'package:final_assignment/screen/login_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -20,13 +19,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   void _signUp() {
     if (_formKey.currentState?.validate() ?? false) {
+      String email = _emailController.text;
+      String password = _passwordController.text;
+
       print('Sign Up successful');
+
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const DashboardScreen()),
+        MaterialPageRoute(
+          builder: (context) => LoginScreen(
+            initialEmail: email,
+            initialPassword: password,
+          ),
+        ),
       );
     } else {
-      // Show validation errors
       setState(() {});
     }
   }
@@ -46,13 +53,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
           ),
           Center(
-            child: Padding(
+            child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Form(
                 key: _formKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    const SizedBox(height: 150), // Space for the logo
                     const Text(
                       'Hello, Sign Up !',
                       style: TextStyle(
@@ -60,7 +68,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 15),
                     TextFormField(
                       controller: _firstNameController,
                       decoration: const InputDecoration(
@@ -81,7 +89,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         return null;
                       },
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 15),
                     TextFormField(
                       controller: _lastNameController,
                       decoration: const InputDecoration(
@@ -102,7 +110,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         return null;
                       },
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 15),
                     TextFormField(
                       controller: _emailController,
                       decoration: const InputDecoration(
@@ -124,7 +132,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         return null;
                       },
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 15),
                     TextFormField(
                       controller: _passwordController,
                       decoration: const InputDecoration(
@@ -146,7 +154,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         return null;
                       },
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 15),
                     TextFormField(
                       controller: _confirmPasswordController,
                       decoration: const InputDecoration(
@@ -252,6 +260,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                       ],
                     ),
+                    const SizedBox(height: 150),
                   ],
                 ),
               ),

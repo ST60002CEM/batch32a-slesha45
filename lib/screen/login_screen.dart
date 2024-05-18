@@ -4,7 +4,10 @@ import 'package:final_assignment/screen/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  final String? initialEmail;
+  final String? initialPassword;
+
+  const LoginScreen({super.key, this.initialEmail, this.initialPassword});
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -16,7 +19,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
 
   void _login() {
-
     if (_formKey.currentState?.validate() ?? false) {
       print('Login successful');
       Navigator.pushReplacement(
