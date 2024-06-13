@@ -1,4 +1,5 @@
 import 'package:final_assignment/screen/splash_screen.dart';
+import 'package:final_assignment/theme/theme_data.dart';
 import 'package:flutter/material.dart';
 
 class App extends StatelessWidget {
@@ -6,9 +7,10 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      theme: getApplicationTheme(),
+      home: const SplashScreen(),
     );
   }
 }

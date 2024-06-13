@@ -45,141 +45,137 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Welcome Back, Login !',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Welcome Back, Login !',
+                        style: TextStyle(
+                            fontSize: 24, fontFamily: ('OpenSans Bold')),
                       ),
-                    ),
-                    const SizedBox(height: 20),
-                    TextFormField(
-                      controller: _emailController,
-                      decoration: const InputDecoration(
-                        labelText: 'Enter your email',
-                        border: OutlineInputBorder(),
+                      const SizedBox(height: 20),
+                      TextFormField(
+                        controller: _emailController,
+                        decoration: const InputDecoration(
+                          labelText: 'Enter your email',
+                          border: OutlineInputBorder(),
+                        ),
+                        keyboardType: TextInputType.emailAddress,
+                        validator: (value) {
+                          final emailError =
+                              LoginModel(email: value ?? '', password: '')
+                                  .validateEmail();
+                          if (emailError != null) {
+                            return emailError;
+                          }
+                          return null;
+                        },
                       ),
-                      keyboardType: TextInputType.emailAddress,
-                      validator: (value) {
-                        final emailError =
-                            LoginModel(email: value ?? '', password: '')
-                                .validateEmail();
-                        if (emailError != null) {
-                          return emailError;
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 20),
-                    TextFormField(
-                      controller: _passwordController,
-                      decoration: const InputDecoration(
-                        labelText: 'Password',
-                        border: OutlineInputBorder(),
+                      const SizedBox(height: 20),
+                      TextFormField(
+                        controller: _passwordController,
+                        decoration: const InputDecoration(
+                          labelText: 'Password',
+                          border: OutlineInputBorder(),
+                        ),
+                        obscureText: true,
+                        validator: (value) {
+                          final passwordError =
+                              LoginModel(email: '', password: value ?? '')
+                                  .validatePassword();
+                          if (passwordError != null) {
+                            return passwordError;
+                          }
+                          return null;
+                        },
                       ),
-                      obscureText: true,
-                      validator: (value) {
-                        final passwordError =
-                            LoginModel(email: '', password: value ?? '')
-                                .validatePassword();
-                        if (passwordError != null) {
-                          return passwordError;
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: _login,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.brown,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 50,
-                          vertical: 15,
+                      const SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: _login,
+                        child: const Text(
+                          'Sign In',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: ("OpenSans Bold"),
+                              fontSize: 16),
                         ),
                       ),
-                      child: const Text(
-                        'Sign In',
-                        style: TextStyle(color: Colors.white),
+                      const SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text("Don't have an account?"),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const SignUpScreen(),
+                                ),
+                              );
+                            },
+                            child: const Text(
+                              'Sign Up',
+                              style: TextStyle(color: Colors.brown),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    const SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text("Don't have an account?"),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const SignUpScreen(),
-                              ),
-                            );
-                          },
-                          child: const Text(
-                            'Sign Up',
-                            style: TextStyle(color: Colors.brown),
+                      const SizedBox(height: 20),
+                      const Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Divider(
+                              thickness: 1,
+                              color: Colors.grey,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    const Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: Divider(
-                            thickness: 1,
-                            color: Colors.grey,
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10.0),
+                            child: Text('or', selectionColor: Colors.grey),
                           ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10.0),
-                          child: Text('or', selectionColor: Colors.grey),
-                        ),
-                        Expanded(
-                          child: Divider(
-                            thickness: 1,
-                            color: Colors.grey,
+                          Expanded(
+                            child: Divider(
+                              thickness: 1,
+                              color: Colors.grey,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            //Action
-                          },
-                          child: const CircleAvatar(
-                            radius: 20,
-                            backgroundImage:
-                                AssetImage('assets/images/facebook.png'),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              //Action
+                            },
+                            child: const CircleAvatar(
+                              radius: 20,
+                              backgroundImage:
+                                  AssetImage('assets/images/facebook.png'),
+                            ),
                           ),
-                        ),
-                        const SizedBox(width: 40),
-                        GestureDetector(
-                          onTap: () {
-                            //Action
-                          },
-                          child: const CircleAvatar(
-                            radius: 20,
-                            backgroundImage:
-                                AssetImage('assets/images/gmail.png'),
+                          const SizedBox(width: 40),
+                          GestureDetector(
+                            onTap: () {
+                              //Action
+                            },
+                            child: const CircleAvatar(
+                              radius: 20,
+                              backgroundImage:
+                                  AssetImage('assets/images/gmail.png'),
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
