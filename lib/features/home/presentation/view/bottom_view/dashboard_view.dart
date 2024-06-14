@@ -2,14 +2,14 @@ import 'package:final_assignment/core/common/show_my_snackbar.dart';
 import 'package:final_assignment/features/home/presentation/viewmodel/home_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
- 
+
 class DashboardView extends ConsumerStatefulWidget {
   const DashboardView({super.key});
- 
+
   @override
   ConsumerState<DashboardView> createState() => _DashboardViewState();
 }
- 
+
 class _DashboardViewState extends ConsumerState<DashboardView> {
   late bool isDark;
   @override
@@ -18,18 +18,16 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
     isDark = false;
     super.initState();
   }
- 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Dashboard View'),
+        title: const Text('Estate Ease'),
         actions: [
           IconButton(
             onPressed: () {
-              // ref.read(batchViewModelProvider.notifier).getBatches();
-              // ref.read(courseViewModelProvider.notifier).getCourses();
-              showMySnackBar(message: 'Refressing...');
+              showMySnackBar(message: 'Refreshing...');
             },
             icon: const Icon(
               Icons.refresh,
@@ -55,40 +53,38 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
               }),
         ],
       ),
-      body: const Padding(
-        padding: EdgeInsets.all(8.0),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
             Align(
               alignment: Alignment.centerLeft,
-              child: Text(
-                'Look into Estate Ease',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+              child: RichText(
+                text: const TextSpan(
+                  children: [
+                    TextSpan(
+                      text: 'Look into ',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black, // Black color
+                      ),
+                    ),
+                    TextSpan(
+                      text: 'Estate Ease',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.brown, // Brown color
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
-            // Flexible(
-            //   child: BatchWidget(ref: ref, batchList: batchState.lstBatches),
-            // ),
-            // const Align(
-            //   alignment: Alignment.centerLeft,
-            //   child: Text(
-            //     'Courses',
-            //     style: TextStyle(
-            //       fontSize: 20,
-            //       fontWeight: FontWeight.bold,
-            //     ),
-            //   ),
-            // ),
-            // Flexible(
-            //   child: CourseWidget(courseList: courseState.lstCourses),
-            // ),
           ],
         ),
       ),
     );
   }
 }
- 
