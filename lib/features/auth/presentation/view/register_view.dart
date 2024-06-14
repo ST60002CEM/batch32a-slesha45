@@ -3,24 +3,22 @@ import 'package:final_assignment/features/auth/presentation/view/login_view.dart
 import 'package:final_assignment/features/auth/presentation/viewmodel/auth_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
- 
+
 class RegisterView extends ConsumerStatefulWidget {
   const RegisterView({super.key});
- 
+
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _RegisterViewState();
 }
- 
+
 class _RegisterViewState extends ConsumerState<RegisterView> {
   final _formKey = GlobalKey<FormState>();
-  final _firstNameController = TextEditingController(text: 'test');
-  final _lastNameController = TextEditingController(text: 'test');
-  final _userNameController = TextEditingController(text: 'test');
-  final _phoneController = TextEditingController(text: '9811111111');
-  final _emailController = TextEditingController(text: 'test@gmail.com');
-  final _passwordController = TextEditingController(text: 'test123');
-  final _confirmPasswordController = TextEditingController(text: 'test123');
- 
+  final _firstNameController = TextEditingController(text: 'Slesha');
+  final _lastNameController = TextEditingController(text: 'Dahal');
+  final _emailController = TextEditingController(text: 'slesha@gmail.com');
+  final _passwordController = TextEditingController(text: 'slesha123');
+  final _confirmPasswordController = TextEditingController(text: 'slesha123');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,61 +48,25 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 16.0),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: _buildTextField(
-                          controller: _firstNameController,
-                          label: 'First name',
-                          icon: Icons.person,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your first name';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                      const SizedBox(width: 16.0),
-                      Expanded(
-                        child: _buildTextField(
-                          controller: _lastNameController,
-                          label: 'Last name',
-                          icon: Icons.person,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your last name';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16.0),
                   _buildTextField(
-                    controller: _userNameController,
-                    label: 'Username',
+                    controller: _firstNameController,
+                    label: 'First name',
                     icon: Icons.person,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter your user name';
+                        return 'Please enter your first name';
                       }
                       return null;
                     },
                   ),
                   const SizedBox(height: 16.0),
                   _buildTextField(
-                    controller: _phoneController,
-                    label: 'Phone number',
-                    icon: Icons.phone,
-                    keyboardType: TextInputType.phone,
+                    controller: _lastNameController,
+                    label: 'Last name',
+                    icon: Icons.person,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter your phone number';
-                      }
-                      if (!RegExp(r"^\+?[0-9]{10,13}$").hasMatch(value)) {
-                        return 'Please enter a valid phone number';
+                        return 'Please enter your last name';
                       }
                       return null;
                     },
@@ -170,12 +132,11 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                         AuthEntity user = AuthEntity(
                           fname: _firstNameController.text,
                           lname: _lastNameController.text,
-                          username: _userNameController.text,
-                          phone: _phoneController.text,
-                          email: _emailController.text,
+                          phone: '1234567890',
+                          username: _emailController.text,
                           password: _passwordController.text,
                         );
- 
+
                         ref
                             .read(authViewModelProvider.notifier)
                             .registerUser(user);
@@ -208,7 +169,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
       ),
     );
   }
- 
+
   Widget _buildTextField({
     required TextEditingController controller,
     required String label,
@@ -233,7 +194,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
       validator: validator,
     );
   }
- 
+
   Widget _buildPasswordField({
     required TextEditingController controller,
     required String label,

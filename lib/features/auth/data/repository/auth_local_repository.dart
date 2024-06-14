@@ -34,4 +34,6 @@ class AuthLocalRepository implements IAuthRepository {
     // TODO: implement uploadProfilePicture
     throw UnimplementedError();
   }
+
+
 }

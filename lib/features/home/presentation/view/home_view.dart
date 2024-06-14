@@ -31,16 +31,16 @@ class _HomeViewState extends ConsumerState<HomeView> {
             label: 'Dashboard',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Wishlist',
+            icon: Icon(Icons.person),
+            label: 'Profile',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
             label: 'Setting',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
+            icon: Icon(Icons.favorite),
+            label: 'Wishlist',
           ),
         ],
         currentIndex: selectedIndex,

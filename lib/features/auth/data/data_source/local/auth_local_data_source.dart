@@ -20,13 +20,12 @@ class AuthLocalDataSource {
 
   Future<Either<Failure, bool>> registerUser(AuthEntity user) async {
     try {
-      final AuthHiveModel authHiveModel = _authHiveModel.toHiveModel(user);
+      final authHiveModel = _authHiveModel.toHiveModel(user);
 
-       // Check if user already exists
-      final existingUser = await _hiveService.getUserByUsername(user.username);
-      if (existingUser != null) {
-        return Left(Failure(error: 'User already exists'));
-      }
+      // final user = await _hiveService.getUserByUsername(user.username);
+      // if (user.username.isNotEmpty) {
+      //   return Left(Failure(error: 'User already exists'));
+      // }
 
       await _hiveService.addUser(authHiveModel);
       return const Right(true);
@@ -40,10 +39,8 @@ class AuthLocalDataSource {
     String password,
   ) async {
     try {
-      AuthHiveModel? user = await _hiveService.login(username, password);
-      if (user == null) {
-        return Left(Failure(error: 'Invalid username or password'));
-      }
+      AuthHiveModel? users = await _hiveService.login(username, password);
+
       return const Right(true);
     } catch (e) {
       return Left(Failure(error: e.toString()));

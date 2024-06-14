@@ -1,7 +1,9 @@
+
 import 'package:final_assignment/app/contants/hive_table_constant.dart';
 import 'package:final_assignment/features/auth/domain/entity/auth_entity.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
 import 'package:uuid/uuid.dart';
 
 part 'auth_hive_model.g.dart';
@@ -10,10 +12,10 @@ final authHiveModelProvider = Provider(
   (ref) => AuthHiveModel.empty(),
 );
 
-@HiveType(typeId: 0)
+@HiveType(typeId: HiveTableConstant.userTableId)
 class AuthHiveModel {
   @HiveField(0)
-  final String? userId;
+  final String userId;
 
   @HiveField(1)
   final String fname;
@@ -24,13 +26,12 @@ class AuthHiveModel {
   @HiveField(3)
   final String phone;
 
-  @HiveField(4)
-  final String email;
 
-  @HiveField(5)
-  final String username;
 
   @HiveField(6)
+  final String username;
+
+  @HiveField(7)
   final String password;
 
   // Constructor
@@ -39,7 +40,7 @@ class AuthHiveModel {
     required this.fname,
     required this.lname,
     required this.phone,
-    required this.email,
+  
     required this.username,
     required this.password,
   }) : userId = userId ?? const Uuid().v4();
@@ -51,7 +52,6 @@ class AuthHiveModel {
           fname: '',
           lname: '',
           phone: '',
-          email: '',
           username: '',
           password: '',
         );
@@ -62,8 +62,7 @@ class AuthHiveModel {
         fname: fname,
         lname: lname,
         phone: phone,
-        email: email,
-
+        
         username: username,
         password: password,
       );
@@ -74,7 +73,7 @@ class AuthHiveModel {
         fname: entity.fname,
         lname: entity.lname,
         phone: entity.phone,
-        email: entity.email,
+      
         username: entity.username,
         password: entity.password,
       );
@@ -85,6 +84,6 @@ class AuthHiveModel {
 
   @override
   String toString() {
-    return 'userId: $userId, fname: $fname, lname: $lname,phone: $phone, email: $email, username: $username, password: $password';
+    return 'userId: $userId, fname: $fname, lname: $lname, phone: $phone, username: $username, password: $password';
   }
 }

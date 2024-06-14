@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/src/widgets/editable_text.dart';
+
+
 
 class AuthEntity extends Equatable {
   final String? id;
@@ -7,7 +8,6 @@ class AuthEntity extends Equatable {
   final String lname;
   final String? image;
   final String phone;
-  final String email;
   final String username;
   final String password;
 
@@ -17,7 +17,6 @@ class AuthEntity extends Equatable {
     required this.lname,
     this.image,
     required this.phone,
-    required this.email,
    
     required this.username,
     required this.password,
@@ -25,5 +24,5 @@ class AuthEntity extends Equatable {
 
   @override
   List<Object?> get props =>
-      [id, fname, lname,phone, image,email, username, password];
+      [id, fname, lname, image, phone, username, password];
 }

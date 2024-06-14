@@ -1,3 +1,4 @@
+
 import 'package:final_assignment/app/contants/hive_table_constant.dart';
 import 'package:final_assignment/features/auth/data/model/auth_hive_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,7 +20,7 @@ class HiveService {
   }
 
   Future<void> addUser(AuthHiveModel user) async {
-    var box = await Hive.openBox<AuthHiveModel>('userBox');
+    var box = await Hive.openBox<AuthHiveModel>(HiveTableConstant.userBox);
     await box.put(user.userId, user);
   }
 
@@ -32,21 +33,21 @@ class HiveService {
 
   //Login
   Future<AuthHiveModel?> login(String username, String password) async {
-    var box = await Hive.openBox<AuthHiveModel>('userBox');
-    var user = box.values.firstWhere(
-        (element) =>
-            element.username == username && element.password == password,
-        orElse: () => AuthHiveModel.empty());
-    if (user.userId!.isEmpty) return null;
+    var box = await Hive.openBox<AuthHiveModel>(HiveTableConstant.userBox);
+    var user = box.values.firstWhere((element) =>
+        element.username == username && element.password == password);
+    box.close();
     return user;
   }
 
+  // Get by username
   Future<AuthHiveModel> getUserByUsername(String username) async {
-    var box = await Hive.openBox<AuthHiveModel>('userBox');
+    var box = await Hive.openBox<AuthHiveModel>(HiveTableConstant.userBox);
     var user = box.values.firstWhere(
       (element) => element.username == username,
       orElse: () => AuthHiveModel.empty(),
     );
+
     return user;
   }
 }

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class AppTheme {
@@ -9,10 +8,10 @@ class AppTheme {
       // Change the theme according to the user preference
       colorScheme: isDark
           ? const ColorScheme.dark(
-              primary: Colors.brown, // Dark theme primary color
+              primary: Colors.grey, // Dark theme primary color
             )
           : const ColorScheme.light(
-              primary: Colors.grey, // Light theme primary color
+              primary: Colors.brown, // Light theme primary color
             ),
       brightness: isDark ? Brightness.dark : Brightness.light,
       fontFamily: 'Arial', // Use a common font
@@ -20,7 +19,7 @@ class AppTheme {
       // Change app bar color
       appBarTheme: AppBarTheme(
         elevation: 0,
-        backgroundColor: isDark ? Colors.brown : Colors.grey,
+        backgroundColor: isDark ? Colors.grey : Colors.brown,
         centerTitle: true,
         titleTextStyle: const TextStyle(
           color: Colors.white,
@@ -37,7 +36,7 @@ class AppTheme {
         style: ElevatedButton.styleFrom(
           elevation: 0,
           foregroundColor: Colors.white,
-          backgroundColor: isDark ? Colors.brown : Colors.grey,
+          backgroundColor: isDark ? Colors.grey : Colors.brown,
           textStyle: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -68,19 +67,19 @@ class AppTheme {
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: isDark ? Colors.brown : Colors.grey,
+            color: isDark ? Colors.grey : Colors.brown,
           ),
         ),
       ),
 
       // Circular progress bar theme
       progressIndicatorTheme: ProgressIndicatorThemeData(
-        color: isDark ? Colors.brown : Colors.grey,
+        color: isDark ? Colors.grey : Colors.brown,
       ),
 
       // Bottom navigation bar theme
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        backgroundColor: isDark ? Colors.brown : Colors.grey,
+        backgroundColor: isDark ? Colors.grey : Colors.brown,
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.black,
         type: BottomNavigationBarType.fixed,
