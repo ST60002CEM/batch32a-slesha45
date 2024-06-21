@@ -4,46 +4,50 @@ import 'package:final_assignment/core/networking/local/hive_service.dart';
 import 'package:final_assignment/features/auth/data/model/auth_hive_model.dart';
 import 'package:final_assignment/features/auth/domain/entity/auth_entity.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-final authLocalDataSourceProvider = Provider(
-  (ref) => AuthLocalDataSource(
-    ref.read(hiveServiceProvider),
-    ref.read(authHiveModelProvider),
-  ),
-);
-
+ 
+final authLocalDataSourceProvider = Provider((ref) => AuthLocalDataSource(
+      hiveService: ref.read(hiveserviceProvider),
+      authHiveModel: ref.read(authHiveModelProvider),
+    ));
+ 
 class AuthLocalDataSource {
-  final HiveService _hiveService;
-  final AuthHiveModel _authHiveModel;
-
-  AuthLocalDataSource(this._hiveService, this._authHiveModel);
-
+  final HiveService hiveService;
+  final AuthHiveModel authHiveModel;
+ 
+  AuthLocalDataSource({
+    required this.hiveService,
+    required this.authHiveModel,
+  });
+ 
   Future<Either<Failure, bool>> registerUser(AuthEntity user) async {
     try {
-      final authHiveModel = _authHiveModel.toHiveModel(user);
-
-      // final user = await _hiveService.getUserByUsername(user.username);
-      // if (user.username.isNotEmpty) {
-      //   return Left(Failure(error: 'User already exists'));
-      // }
-
-      await _hiveService.addUser(authHiveModel);
+      //If already email throw error
+      final userByEmail = await hiveService.getUserByEmail(user.email);
+      if (userByEmail!.email.isNotEmpty) {
+        return Left(Failure(error: 'User already exist'));
+      }
+ 
+      // Convert Entity to model
+      final hiveUser = authHiveModel.fromEntity(user);
+ 
+      await hiveService.registerUser(hiveUser);
       return const Right(true);
     } catch (e) {
       return Left(Failure(error: e.toString()));
     }
   }
-
-  Future<Either<Failure, bool>> loginUser(
-    String username,
-    String password,
-  ) async {
+  // login
+ 
+  Future<Either<Failure, bool>> loginUser(String email, String password) async {
     try {
-      // AuthHiveModel? users = await _hiveService.login(username, password);
-
+      final user = await hiveService.loginUser(email, password);
+ 
+      if (user?.email.isEmpty ?? true) {
+        return Left(Failure(error: 'User not found'));
+      }
       return const Right(true);
-    } catch (e) {
-      return Left(Failure(error: e.toString()));
+    } catch (error) {
+      return Left(Failure(error: error.toString()));
     }
   }
 }

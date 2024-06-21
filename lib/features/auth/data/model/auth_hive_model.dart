@@ -1,89 +1,71 @@
-
-import 'package:final_assignment/app/contants/hive_table_constant.dart';
 import 'package:final_assignment/features/auth/domain/entity/auth_entity.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-
+import 'package:hive_flutter/adapters.dart';
 import 'package:uuid/uuid.dart';
-
+ 
 part 'auth_hive_model.g.dart';
-
+ 
 final authHiveModelProvider = Provider(
   (ref) => AuthHiveModel.empty(),
 );
-
-@HiveType(typeId: HiveTableConstant.userTableId)
+ 
+@HiveType(typeId: 0)
 class AuthHiveModel {
   @HiveField(0)
   final String userId;
-
   @HiveField(1)
-  final String fname;
-
+  final String fName;
+ 
   @HiveField(2)
-  final String lname;
-
+  final String lName;
+ 
   @HiveField(3)
-  final String phone;
-
-
-
-  @HiveField(6)
-  final String username;
-
-  @HiveField(7)
+  final String email;
+ 
+  @HiveField(4)
   final String password;
-
   // Constructor
   AuthHiveModel({
     String? userId,
-    required this.fname,
-    required this.lname,
-    required this.phone,
-  
-    required this.username,
+    required this.fName,
+    required this.lName,
+    required this.email,
     required this.password,
   }) : userId = userId ?? const Uuid().v4();
-
-  // empty constructor
+  // Empty Constructor
   AuthHiveModel.empty()
       : this(
           userId: '',
-          fname: '',
-          lname: '',
-          phone: '',
-          username: '',
+          fName: '',
+          lName: '',
+          email: '',
           password: '',
         );
-
-  // Convert Hive Object to Entity
+ 
   AuthEntity toEntity() => AuthEntity(
-        id: userId,
-        fname: fname,
-        lname: lname,
-        phone: phone,
-        
-        username: username,
+        userId: userId,
+        fName: fName,
+        lName: lName,
+        email: email,
         password: password,
       );
-
-  // Convert Entity to Hive Object
-  AuthHiveModel toHiveModel(AuthEntity entity) => AuthHiveModel(
+ 
+  AuthHiveModel fromEntity(AuthEntity entity) => AuthHiveModel(
         userId: const Uuid().v4(),
-        fname: entity.fname,
-        lname: entity.lname,
-        phone: entity.phone,
-      
-        username: entity.username,
+        fName: entity.fName,
+        lName: entity.lName,
+        email: entity.email,
         password: entity.password,
       );
-
-  // Convert Entity List to Hive List
-  List<AuthHiveModel> toHiveModelList(List<AuthEntity> entities) =>
-      entities.map((entity) => toHiveModel(entity)).toList();
-
+ 
+  List<AuthEntity> toEntities(List<AuthHiveModel> models) =>
+      models.map((model) => model.toEntity()).toList();
+ 
+  List<AuthHiveModel> fromEntities(List<AuthEntity> entities) =>
+      entities.map((entity) => fromEntity(entity)).toList();
+ 
   @override
   String toString() {
-    return 'userId: $userId, fname: $fname, lname: $lname, phone: $phone, username: $username, password: $password';
+    return 'AuthHiveModel(userId: $userId, fName: $fName, lName: $lName, email: $email, password: $password)';
   }
 }
