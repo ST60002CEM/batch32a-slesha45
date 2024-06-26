@@ -16,6 +16,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
@@ -89,6 +90,21 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                     },
                   ),
                   const SizedBox(height: 16.0),
+                  _buildTextField(
+                    controller: phoneController,
+                    label: 'Phone Number',
+                    icon: Icons.phone,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter phone number';
+                      }
+                      if (!RegExp(r"^\+?[0-9]{10,13}$").hasMatch(value)) {
+                        return 'Please enter a valid phone number';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 16.0),
                   _buildPasswordField(
                     controller: passwordController,
                     label: 'Password',
@@ -134,7 +150,8 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                           fName: firstNameController.text,
                           lName: lastNameController.text,
                           email: emailController.text,
-                          password: passwordController.text,
+                          password: passwordController.text, 
+                          phone: phoneController.text,
                         );
 
                         ref

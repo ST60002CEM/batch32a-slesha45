@@ -16,7 +16,7 @@ class AuthApiModel extends Equatable {
   final String firstName;
   final String lastName;
   final String email;
- 
+  final String phone;
   final String password;
  
   const AuthApiModel({
@@ -24,6 +24,7 @@ class AuthApiModel extends Equatable {
     required this.firstName,
     required this.lastName,
     required this.email,
+    required this.phone,
     required this.password,
   });
  
@@ -32,6 +33,7 @@ class AuthApiModel extends Equatable {
         firstName = '',
         lastName = '',
         email = '',
+        phone = '',
         password = '';
  
   AuthEntity toEntity() {
@@ -40,6 +42,7 @@ class AuthApiModel extends Equatable {
       fName: firstName,
       lName: lastName,
       email: email,
+      phone: phone,
       password: password,
     );
   }
@@ -49,6 +52,7 @@ class AuthApiModel extends Equatable {
       firstName: entity.fName,
       lastName: entity.lName,
       email: entity.email,
+      phone: entity.phone,
       password: entity.password,
     );
   }
@@ -64,6 +68,7 @@ class AuthApiModel extends Equatable {
         firstName,
         lastName,
         email,
+        phone,
         password,
       ];
 }
