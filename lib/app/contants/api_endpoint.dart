@@ -15,7 +15,7 @@ class ApiEndpoints {
   static const String updateProperty = 'property/update_property';
 
   static const String paginationProperty = 'property/pagination';
-  static const int limitPage = 2;
+  static const int limitPage = 5;
 
   // static const String imageUrl = 'http://192.168.1.133:5000/property/'
   static const String imageUrl = 'http://10.0.2.2:5000/property/';
