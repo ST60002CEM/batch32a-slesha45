@@ -54,7 +54,7 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
         ),
         body: RefreshIndicator(
           onRefresh: () async {
-            await ref.read(propertyViewModelProvider.notifier).getProperty();
+            await ref.read(propertyViewModelProvider.notifier).resetState();
           },
           child: SingleChildScrollView(
             controller: _scrollController,
