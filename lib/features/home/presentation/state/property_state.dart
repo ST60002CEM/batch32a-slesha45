@@ -1,6 +1,3 @@
-
-
-
 import 'package:final_assignment/features/home/domain/entity/property_entity.dart';
 
 class PropertyState {
