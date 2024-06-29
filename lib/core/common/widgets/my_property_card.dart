@@ -1,4 +1,3 @@
-
 import 'package:final_assignment/app/contants/api_endpoint.dart';
 import 'package:final_assignment/features/home/domain/entity/property_entity.dart';
 import 'package:flutter/material.dart';
@@ -83,29 +82,29 @@ class MyPropertyCard extends StatelessWidget {
               ),
             ],
           ),
-          Positioned(
-            top: 0,
-            right: 0,
-            child: Padding(
-              padding: const EdgeInsets.all(1),
-              child: IconButton(
-                icon: const Icon(
-                  Icons.favorite_border,
-                  color: Colors.red,
-                ),
-                onPressed: () {
-                  // Add your favorite button logic here
-                },
-              ),
-            ),
-          ),
+          // Positioned(
+          //   top: 0,
+          //   right: 0,
+          //   child: Padding(
+          //     padding: const EdgeInsets.all(1),
+          //     child: IconButton(
+          //       icon: const Icon(
+          //         Icons.favorite_border,
+          //         color: Colors.red,
+          //       ),
+          //       onPressed: () {
+          //         // Add your favorite button logic here
+          //       },
+          //     ),
+          //   ),
+          // ),
           Positioned(
             bottom: 0,
             right: 0,
             child: IconButton(
               icon: const Icon(
-                Icons.add_shopping_cart,
-                color: Colors.blue,
+                Icons.view_module,
+                color: Colors.brown,
               ),
               onPressed: () {
                 // Add your add to cart button logic here

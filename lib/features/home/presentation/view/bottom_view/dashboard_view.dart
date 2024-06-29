@@ -1,5 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:final_assignment/core/common/show_my_snackbar.dart';
 import 'package:final_assignment/core/common/widgets/my_property_card.dart';
 import 'package:final_assignment/features/home/presentation/viewmodel/property_viewmodel.dart';
 import 'package:flutter/material.dart';
@@ -44,15 +42,15 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
         appBar: AppBar(
           title: const Text('Estate Ease'),
           actions: [
-            IconButton(
-              onPressed: () {
-                showMySnackBar(message: 'Refreshing...');
-              },
-              icon: const Icon(
-                Icons.refresh,
-                color: Colors.white,
-              ),
-            ),
+            // IconButton(
+            //   onPressed: () {
+            //     showMySnackBar(message: 'Refreshing...');
+            //   },
+            //   icon: const Icon(
+            //     Icons.refresh,
+            //     color: Colors.white,
+            //   ),
+            // ),
             Switch(
                 value: isDark,
                 onChanged: (value) {
@@ -86,39 +84,48 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
                 ),
                 const SizedBox(height: 16),
                 // Category dropdown
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.brown),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton<String>(
-                      isExpanded: true,
-                      items: const [
-                        DropdownMenuItem(
-                          value: '1',
-                          child: Text('Apartment'),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                    width: 200,
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    decoration: BoxDecoration(
+                      color: Colors.brown,
+                      border: Border.all(color: Colors.brown),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        isExpanded: true,
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        items: const [
+                          DropdownMenuItem(
+                            value: '1',
+                            child: Text('Apartment'),
+                          ),
+                          DropdownMenuItem(
+                            value: '2',
+                            child: Text('House'),
+                          ),
+                          DropdownMenuItem(
+                            value: '3',
+                            child: Text('Flat'),
+                          ),
+                          DropdownMenuItem(
+                            value: '4',
+                            child: Text('Land'),
+                          ),
+                          DropdownMenuItem(
+                            value: '5',
+                            child: Text('Building'),
+                          ),
+                        ],
+                        onChanged: (value) {},
+                        hint: const Text(
+                          'Choose a category',
+                          style: TextStyle(color: Colors.white),
                         ),
-                        DropdownMenuItem(
-                          value: '2',
-                          child: Text('House'),
-                        ),
-                        DropdownMenuItem(
-                          value: '3',
-                          child: Text('Flat'),
-                        ),
-                        DropdownMenuItem(
-                          value: '4',
-                          child: Text('Land'),
-                        ),
-                        DropdownMenuItem(
-                          value: '5',
-                          child: Text('Building'),
-                        ),
-                      ],
-                      onChanged: (value) {},
-                      hint: const Text('Choose a category'),
+                      ),
                     ),
                   ),
                 ),
@@ -151,45 +158,45 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
                 ),
                 const SizedBox(height: 16),
                 // Carousel Slider
-                CarouselSlider(
-                  options: CarouselOptions(
-                    height: 200,
-                    autoPlay: true,
-                    enlargeCenterPage: true,
-                    aspectRatio: 2.0,
-                  ),
-                  items: [
-                    'https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-                    'https://images.pexels.com/photos/5847577/pexels-photo-5847577.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-                    'https://images.pexels.com/photos/6956853/pexels-photo-6956853.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-                  ].map((imageUrl) {
-                    return Builder(
-                      builder: (BuildContext context) {
-                        return Container(
-                          width: MediaQuery.of(context).size.width,
-                          margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                          decoration: const BoxDecoration(
-                            color: Colors.amber,
-                          ),
-                          child: Image.network(
-                            imageUrl,
-                            fit: BoxFit.cover,
-                          ),
-                        );
-                      },
-                    );
-                  }).toList(),
-                ),
+                // CarouselSlider(
+                //   options: CarouselOptions(
+                //     height: 200,
+                //     autoPlay: true,
+                //     enlargeCenterPage: true,
+                //     aspectRatio: 2.0,
+                //   ),
+                //   items: [
+                //     'https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+                //     'https://images.pexels.com/photos/5847577/pexels-photo-5847577.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+                //     'https://images.pexels.com/photos/6956853/pexels-photo-6956853.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+                //   ].map((imageUrl) {
+                //     return Builder(
+                //       builder: (BuildContext context) {
+                //         return Container(
+                //           width: MediaQuery.of(context).size.width,
+                //           margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                //           decoration: const BoxDecoration(
+                //             color: Colors.amber,
+                //           ),
+                //           child: Image.network(
+                //             imageUrl,
+                //             fit: BoxFit.cover,
+                //           ),
+                //         );
+                //       },
+                //     );
+                //   }).toList(),
+                // ),
                 const SizedBox(height: 16),
                 // Product Grid
                 GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
+                    crossAxisCount: 1,
                     crossAxisSpacing: 8,
                     mainAxisSpacing: 8,
-                    childAspectRatio: 0.75,
+                    childAspectRatio: 1.5,
                   ),
                   itemCount: state.property.length,
                   itemBuilder: (context, index) {
