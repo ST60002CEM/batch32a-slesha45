@@ -1,28 +1,27 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
-
-
-
+ 
 class AuthEntity extends Equatable {
-  final String? id;
-  final String fname;
-  final String lname;
-  final String? image;
-  final String phone;
-  final String username;
+  final String? userId;
+  final String fName;
+  final String lName;
+  final String email;
   final String password;
-
+ 
   const AuthEntity({
-    this.id,
-    required this.fname,
-    required this.lname,
-    this.image,
-    required this.phone,
-   
-    required this.username,
+    this.userId,
+    required this.fName,
+    required this.lName,
+    required this.email,
     required this.password,
   });
-
+ 
   @override
-  List<Object?> get props =>
-      [id, fname, lname, image, phone, username, password];
+  List<Object?> get props => [
+        userId,
+        fName,
+        lName,
+        email,
+        password,
+      ];
 }

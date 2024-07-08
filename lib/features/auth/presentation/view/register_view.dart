@@ -13,11 +13,12 @@ class RegisterView extends ConsumerStatefulWidget {
 
 class _RegisterViewState extends ConsumerState<RegisterView> {
   final _formKey = GlobalKey<FormState>();
-  final _firstNameController = TextEditingController(text: 'Slesha');
-  final _lastNameController = TextEditingController(text: 'Dahal');
-  final _emailController = TextEditingController(text: 'slesha@gmail.com');
-  final _passwordController = TextEditingController(text: 'slesha123');
-  final _confirmPasswordController = TextEditingController(text: 'slesha123');
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +50,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                   ),
                   const SizedBox(height: 16.0),
                   _buildTextField(
-                    controller: _firstNameController,
+                    controller: firstNameController,
                     label: 'First name',
                     icon: Icons.person,
                     validator: (value) {
@@ -61,7 +62,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                   ),
                   const SizedBox(height: 16.0),
                   _buildTextField(
-                    controller: _lastNameController,
+                    controller: lastNameController,
                     label: 'Last name',
                     icon: Icons.person,
                     validator: (value) {
@@ -73,7 +74,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                   ),
                   const SizedBox(height: 16.0),
                   _buildTextField(
-                    controller: _emailController,
+                    controller: emailController,
                     label: 'Email address',
                     icon: Icons.email,
                     keyboardType: TextInputType.emailAddress,
@@ -89,7 +90,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                   ),
                   const SizedBox(height: 16.0),
                   _buildPasswordField(
-                    controller: _passwordController,
+                    controller: passwordController,
                     label: 'Password',
                     icon: Icons.lock,
                     validator: (value) {
@@ -104,14 +105,14 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                   ),
                   const SizedBox(height: 16.0),
                   _buildPasswordField(
-                    controller: _confirmPasswordController,
+                    controller: confirmPasswordController,
                     label: 'Confirm password',
                     icon: Icons.lock,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please confirm your password';
                       }
-                      if (value != _passwordController.text) {
+                      if (value != passwordController.text) {
                         return 'Passwords do not match';
                       }
                       return null;
@@ -130,11 +131,10 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         AuthEntity user = AuthEntity(
-                          fname: _firstNameController.text,
-                          lname: _lastNameController.text,
-                          phone: '1234567890',
-                          username: _emailController.text,
-                          password: _passwordController.text,
+                          fName: firstNameController.text,
+                          lName: lastNameController.text,
+                          email: emailController.text,
+                          password: passwordController.text,
                         );
 
                         ref
