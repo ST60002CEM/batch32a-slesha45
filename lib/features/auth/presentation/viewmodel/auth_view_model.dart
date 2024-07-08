@@ -25,20 +25,6 @@ class AuthViewModel extends StateNotifier<AuthState> {
       showMySnackBar(message: "No file selected", color: Colors.red);
       return;
     }
-
-    state = state.copyWith(isLoading: true);
-    var data = await authUseCase.uploadProfilePicture(file);
-    data.fold(
-      (failure) {
-        state = state.copyWith(isLoading: false, error: failure.error);
-        showMySnackBar(message: failure.error, color: Colors.red);
-      },
-      (imageName) {
-        state =
-            state.copyWith(isLoading: false, error: null, imageName: imageName);
-        showMySnackBar(message: "Image uploaded successfully");
-      },
-    );
   }
 
   Future<void> registerUser(AuthEntity user) async {

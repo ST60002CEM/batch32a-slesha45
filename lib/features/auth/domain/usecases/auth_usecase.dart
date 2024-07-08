@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dartz/dartz.dart';
 import 'package:final_assignment/core/failure/failure.dart';
 import 'package:final_assignment/features/auth/domain/entity/auth_entity.dart';
@@ -15,10 +13,6 @@ class AuthUseCase {
   final IAuthRepository _authRepository;
 
   AuthUseCase(this._authRepository);
-
-  Future<Either<Failure, String>> uploadProfilePicture(File file) async {
-    return await _authRepository.uploadProfilePicture(file);
-  }
 
   Future<Either<Failure, bool>> registerUser(AuthEntity user) async {
     return await _authRepository.registerUser(user);

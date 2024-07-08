@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dartz/dartz.dart';
 import 'package:final_assignment/core/failure/failure.dart';
 import 'package:final_assignment/features/auth/data/data_source/remote/auth_remote_data_source.dart';
@@ -28,9 +26,4 @@ class AuthRemoteRepository implements IAuthRepository {
     return authRemoteDataSource.registerUser(user);
   }
 
-  @override
-  Future<Either<Failure, String>> uploadProfilePicture(File file) {
-    // TODO: implement uploadProfilePicture
-    throw UnimplementedError();
-  }
 }
