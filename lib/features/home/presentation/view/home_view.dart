@@ -50,8 +50,8 @@ class _HomeViewState extends ConsumerState<HomeView> {
         isDialogShowing = true;
         final result = await AwesomeDialog(
           context: context,
-          dialogType: DialogType.warning,
-          title: 'Logout',
+          dialogType: DialogType.noHeader,
+          // title: 'Logout',
           desc: 'Are You Sure You Want To Logout?',
           btnOkOnPress: () {
             ref.read(homeViewModelProvider.notifier).logout();
