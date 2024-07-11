@@ -1,7 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:final_assignment/core/failure/failure.dart';
+import 'package:final_assignment/features/auth/domain/entity/auth_entity.dart';
 import 'package:final_assignment/features/auth/domain/usecases/auth_usecase.dart';
 import 'package:final_assignment/features/auth/presentation/navigator/login_navigator.dart';
+import 'package:final_assignment/features/auth/presentation/navigator/register_navigator.dart';
 import 'package:final_assignment/features/auth/presentation/viewmodel/auth_view_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -10,7 +12,11 @@ import 'package:mockito/mockito.dart';
 
 import 'auth_test.mocks.dart';
 
-@GenerateNiceMocks([MockSpec<AuthUseCase>(), MockSpec<LoginViewNavigator>()])
+@GenerateNiceMocks([
+  MockSpec<AuthUseCase>(),
+  MockSpec<LoginViewNavigator>(),
+  MockSpec<RegisterViewNavigator>(),
+])
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -61,5 +67,44 @@ void main() {
 
     //Assert
     expect(authState.error, isNull);
+  });
+  test("Register user with valid credentials", () async {
+    //Arrange
+    when(mockAuthUsecase.registerUser(any)).thenAnswer((invocation) {
+      final user = invocation.positionalArguments[0] as AuthEntity;
+      return Future.value(
+        user.fName.isNotEmpty &&
+                user.lName.isNotEmpty &&
+                user.email.isNotEmpty &&
+                user.password.isNotEmpty &&
+                user.email.contains('@') &&
+                user.email.contains('.') &&
+                user.phone.length == 10
+            ? const Right(true)
+            : Left(
+                Failure(error: 'Invalid'),
+              ),
+      );
+    });
+
+    //Act
+    await container
+        .read(authViewModelProvider.notifier)
+        .registerUser(const AuthEntity(
+          fName: 'slesha',
+          lName: 'slesha',
+          email: 'slesha@gmail',
+          phone: '1234567890',
+          password: 'slesha123',
+        ));
+
+    final state = container.read(authViewModelProvider);
+
+    //Assert
+    expect(state.isLoading, true);
+    expect(state.error, null);
+  });
+  tearDown((){
+    container.dispose();
   });
 }
