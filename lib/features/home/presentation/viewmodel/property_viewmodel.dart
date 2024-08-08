@@ -18,7 +18,7 @@ class PropertyViewmodel extends StateNotifier<PropertyState> {
 
   Future resetState() async {
     state = PropertyState.initial();
-    getProperty();
+     await getProperty();
   }
 
   Future getProperty() async {

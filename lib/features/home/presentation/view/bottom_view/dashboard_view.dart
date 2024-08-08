@@ -95,23 +95,11 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
                           items: const [
                             DropdownMenuItem(
                               value: '1',
-                              child: Text('Apartment'),
+                              child: Text('Price : High to Low'),
                             ),
                             DropdownMenuItem(
                               value: '2',
-                              child: Text('House'),
-                            ),
-                            DropdownMenuItem(
-                              value: '3',
-                              child: Text('Flat'),
-                            ),
-                            DropdownMenuItem(
-                              value: '4',
-                              child: Text('Land'),
-                            ),
-                            DropdownMenuItem(
-                              value: '5',
-                              child: Text('Building'),
+                              child: Text('Price : High to Low'),
                             ),
                           ],
                           onChanged: (value) {},
