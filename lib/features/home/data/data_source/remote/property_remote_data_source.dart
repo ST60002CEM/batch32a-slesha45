@@ -55,7 +55,7 @@ class PropertyRemoteDataSource {
           },
         ),
       );
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
         final paginationDto = PaginationDto.fromJson(response.data);
         return Right(propertyApiModel.toEntityList(paginationDto.property));
       }
