@@ -54,6 +54,8 @@ dependencies:
   connectivity_plus: ^4.0.1
   awesome_dialog: ^3.2.1
   all_sensors2: ^1.0.1
+  test_cov_console: ^0.2.2
+  local_auth: ^2.3.0
   
 
 dev_dependencies:
