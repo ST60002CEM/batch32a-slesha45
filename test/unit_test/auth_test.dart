@@ -79,7 +79,7 @@ void main() {
                 user.password.isNotEmpty &&
                 user.email.contains('@') &&
                 user.email.contains('.') &&
-                user.phone.length == 10
+                user.phone == 10
             ? const Right(true)
             : Left(
                 Failure(error: 'Invalid'),
@@ -94,7 +94,7 @@ void main() {
           fName: 'slesha',
           lName: 'slesha',
           email: 'slesha@gmail',
-          phone: '1234567890',
+          phone: 1234567890,
           password: 'slesha123',
         ));
 

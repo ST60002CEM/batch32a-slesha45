@@ -3,18 +3,22 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i6;
 
-import 'package:dartz/dartz.dart' as _i2;
-import 'package:final_assignment/core/failure/failure.dart' as _i5;
-import 'package:final_assignment/features/auth/domain/entity/auth_entity.dart'
-    as _i6;
-import 'package:final_assignment/features/auth/domain/usecases/auth_usecase.dart'
+import 'package:dartz/dartz.dart' as _i4;
+import 'package:final_assignment/core/failure/failure.dart' as _i7;
+import 'package:final_assignment/core/shared_prefs/user_shared_prefs.dart'
     as _i3;
-import 'package:final_assignment/features/auth/presentation/navigator/login_navigator.dart'
-    as _i7;
-import 'package:final_assignment/features/auth/presentation/navigator/register_navigator.dart'
+import 'package:final_assignment/features/auth/domain/entity/auth_entity.dart'
     as _i8;
+import 'package:final_assignment/features/auth/domain/repository/i_auth_repository.dart'
+    as _i2;
+import 'package:final_assignment/features/auth/domain/usecases/auth_usecase.dart'
+    as _i5;
+import 'package:final_assignment/features/auth/presentation/navigator/login_navigator.dart'
+    as _i9;
+import 'package:final_assignment/features/auth/presentation/navigator/register_navigator.dart'
+    as _i10;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -30,8 +34,30 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
-  _FakeEither_0(
+class _FakeIAuthRepository_0 extends _i1.SmartFake
+    implements _i2.IAuthRepository {
+  _FakeIAuthRepository_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeUserSharedPrefs_1 extends _i1.SmartFake
+    implements _i3.UserSharedPrefs {
+  _FakeUserSharedPrefs_1(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeEither_2<L, R> extends _i1.SmartFake implements _i4.Either<L, R> {
+  _FakeEither_2(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -43,17 +69,43 @@ class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
 /// A class which mocks [AuthUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAuthUseCase extends _i1.Mock implements _i3.AuthUseCase {
+class MockAuthUseCase extends _i1.Mock implements _i5.AuthUseCase {
   @override
-  _i4.Future<_i2.Either<_i5.Failure, bool>> registerUser(
-          _i6.AuthEntity? user) =>
+  _i2.IAuthRepository get authRepository => (super.noSuchMethod(
+        Invocation.getter(#authRepository),
+        returnValue: _FakeIAuthRepository_0(
+          this,
+          Invocation.getter(#authRepository),
+        ),
+        returnValueForMissingStub: _FakeIAuthRepository_0(
+          this,
+          Invocation.getter(#authRepository),
+        ),
+      ) as _i2.IAuthRepository);
+
+  @override
+  _i3.UserSharedPrefs get userSharedprefs => (super.noSuchMethod(
+        Invocation.getter(#userSharedprefs),
+        returnValue: _FakeUserSharedPrefs_1(
+          this,
+          Invocation.getter(#userSharedprefs),
+        ),
+        returnValueForMissingStub: _FakeUserSharedPrefs_1(
+          this,
+          Invocation.getter(#userSharedprefs),
+        ),
+      ) as _i3.UserSharedPrefs);
+
+  @override
+  _i6.Future<_i4.Either<_i7.Failure, bool>> registerUser(
+          _i8.AuthEntity? user) =>
       (super.noSuchMethod(
         Invocation.method(
           #registerUser,
           [user],
         ),
-        returnValue: _i4.Future<_i2.Either<_i5.Failure, bool>>.value(
-            _FakeEither_0<_i5.Failure, bool>(
+        returnValue: _i6.Future<_i4.Either<_i7.Failure, bool>>.value(
+            _FakeEither_2<_i7.Failure, bool>(
           this,
           Invocation.method(
             #registerUser,
@@ -61,18 +113,18 @@ class MockAuthUseCase extends _i1.Mock implements _i3.AuthUseCase {
           ),
         )),
         returnValueForMissingStub:
-            _i4.Future<_i2.Either<_i5.Failure, bool>>.value(
-                _FakeEither_0<_i5.Failure, bool>(
+            _i6.Future<_i4.Either<_i7.Failure, bool>>.value(
+                _FakeEither_2<_i7.Failure, bool>(
           this,
           Invocation.method(
             #registerUser,
             [user],
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, bool>>);
+      ) as _i6.Future<_i4.Either<_i7.Failure, bool>>);
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, bool>> loginUser(
+  _i6.Future<_i4.Either<_i7.Failure, bool>> loginUser(
     String? email,
     String? password,
   ) =>
@@ -84,8 +136,8 @@ class MockAuthUseCase extends _i1.Mock implements _i3.AuthUseCase {
             password,
           ],
         ),
-        returnValue: _i4.Future<_i2.Either<_i5.Failure, bool>>.value(
-            _FakeEither_0<_i5.Failure, bool>(
+        returnValue: _i6.Future<_i4.Either<_i7.Failure, bool>>.value(
+            _FakeEither_2<_i7.Failure, bool>(
           this,
           Invocation.method(
             #loginUser,
@@ -96,8 +148,8 @@ class MockAuthUseCase extends _i1.Mock implements _i3.AuthUseCase {
           ),
         )),
         returnValueForMissingStub:
-            _i4.Future<_i2.Either<_i5.Failure, bool>>.value(
-                _FakeEither_0<_i5.Failure, bool>(
+            _i6.Future<_i4.Either<_i7.Failure, bool>>.value(
+                _FakeEither_2<_i7.Failure, bool>(
           this,
           Invocation.method(
             #loginUser,
@@ -107,17 +159,94 @@ class MockAuthUseCase extends _i1.Mock implements _i3.AuthUseCase {
             ],
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, bool>>);
+      ) as _i6.Future<_i4.Either<_i7.Failure, bool>>);
+
+  @override
+  _i6.Future<_i4.Either<_i7.Failure, bool>> verifyUser() => (super.noSuchMethod(
+        Invocation.method(
+          #verifyUser,
+          [],
+        ),
+        returnValue: _i6.Future<_i4.Either<_i7.Failure, bool>>.value(
+            _FakeEither_2<_i7.Failure, bool>(
+          this,
+          Invocation.method(
+            #verifyUser,
+            [],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i6.Future<_i4.Either<_i7.Failure, bool>>.value(
+                _FakeEither_2<_i7.Failure, bool>(
+          this,
+          Invocation.method(
+            #verifyUser,
+            [],
+          ),
+        )),
+      ) as _i6.Future<_i4.Either<_i7.Failure, bool>>);
+
+  @override
+  _i6.Future<_i4.Either<_i7.Failure, _i8.AuthEntity>> getCurrentUser() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getCurrentUser,
+          [],
+        ),
+        returnValue: _i6.Future<_i4.Either<_i7.Failure, _i8.AuthEntity>>.value(
+            _FakeEither_2<_i7.Failure, _i8.AuthEntity>(
+          this,
+          Invocation.method(
+            #getCurrentUser,
+            [],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i6.Future<_i4.Either<_i7.Failure, _i8.AuthEntity>>.value(
+                _FakeEither_2<_i7.Failure, _i8.AuthEntity>(
+          this,
+          Invocation.method(
+            #getCurrentUser,
+            [],
+          ),
+        )),
+      ) as _i6.Future<_i4.Either<_i7.Failure, _i8.AuthEntity>>);
+
+  @override
+  _i6.Future<_i4.Either<_i7.Failure, bool>> fingerPrintLogin() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #fingerPrintLogin,
+          [],
+        ),
+        returnValue: _i6.Future<_i4.Either<_i7.Failure, bool>>.value(
+            _FakeEither_2<_i7.Failure, bool>(
+          this,
+          Invocation.method(
+            #fingerPrintLogin,
+            [],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i6.Future<_i4.Either<_i7.Failure, bool>>.value(
+                _FakeEither_2<_i7.Failure, bool>(
+          this,
+          Invocation.method(
+            #fingerPrintLogin,
+            [],
+          ),
+        )),
+      ) as _i6.Future<_i4.Either<_i7.Failure, bool>>);
 }
 
 /// A class which mocks [LoginViewNavigator].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockLoginViewNavigator extends _i1.Mock
-    implements _i7.LoginViewNavigator {}
+    implements _i9.LoginViewNavigator {}
 
 /// A class which mocks [RegisterViewNavigator].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockRegisterViewNavigator extends _i1.Mock
-    implements _i8.RegisterViewNavigator {}
+    implements _i10.RegisterViewNavigator {}
