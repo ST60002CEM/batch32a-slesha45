@@ -26,7 +26,7 @@ class AuthHiveModel {
   final String password;
 
   @HiveField(5)
-  final String phone;
+  final int phone;
   // Constructor
   AuthHiveModel({
     String? userId,
@@ -43,7 +43,7 @@ class AuthHiveModel {
           fName: '',
           lName: '',
           email: '',
-          phone: '',
+          phone: 0,
           password: '',
         );
  
