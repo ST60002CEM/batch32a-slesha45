@@ -9,7 +9,10 @@ class ApiEndpoints {
   // ====================== Auth Routes ======================
   static const String loginUser = "user/login";
   static const String registerUser = "user/create";
-
+  static const String getMe = "user/profile/get";
+  static const String getToken = "user/token";
+  static const String verifyUser = "user/verifyUser";
+ 
 // ============Property Routes ==========
   static const String getAllProperty = 'property/get_all_property';
   static const String updateProperty = 'property/update_property';
