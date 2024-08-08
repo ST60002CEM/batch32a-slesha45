@@ -1,3 +1,4 @@
+import 'package:final_assignment/core/common/provider/theme_view_model_provider.dart';
 import 'package:final_assignment/core/common/widgets/my_property_card.dart';
 import 'package:final_assignment/features/home/presentation/viewmodel/property_viewmodel.dart';
 import 'package:flutter/material.dart';
@@ -43,13 +44,10 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
           title: const Text('Estate Ease'),
           actions: [
             Switch(
-              value: isDark,
-              onChanged: (value) {
-                setState(() {
-                  isDark = value;
-                });
-              },
-            ),
+                value: ref.read(themeViewModelProvider),
+                onChanged: (value) {
+                  ref.read(themeViewModelProvider.notifier).changeTheme();
+                }),
           ],
         ),
         body: RefreshIndicator(

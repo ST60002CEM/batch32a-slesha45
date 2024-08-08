@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:final_assignment/core/common/provider/theme_view_model_provider.dart';
 import 'package:final_assignment/features/auth/presentation/viewmodel/auth_view_model.dart';
 import 'package:final_assignment/features/profile/presentation/view_model/profile_view_model.dart';
 import 'package:final_assignment/features/profile/presentation/widgets/profile_menu.dart';
@@ -80,11 +81,13 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
         child: Column(
           children: [
             const SizedBox(height: 20),
-            profileState.isLoading
-                ? const CircularProgressIndicator()
-                : Text("${profileState.authEntity?.fName}"),
+            // profileState.isLoading
+            //     ? const CircularProgressIndicator()
+            //     : Text("${profileState.authEntity?.fName}"),
             ProfileMenu(
-              text: "${profileState.authEntity?.fName}",
+              text: "${profileState.authEntity?.fName}"
+                  " "
+                  "${profileState.authEntity?.lName}",
               icon: "assets/icons/profile.svg",
               press: () {
                 if (mounted) {
@@ -143,17 +146,23 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: TextButton(
                 style: TextButton.styleFrom(
-                  foregroundColor: Colors.blueAccent,
+                  foregroundColor: Colors.brown,
                   padding: const EdgeInsets.all(20),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15)),
-                  backgroundColor: Colors.blueAccent.withOpacity(0.2),
+                  backgroundColor: Colors.brown.withOpacity(0.2),
                 ),
                 onPressed: () {},
-                child: const Row(
+                child: Row(
                   children: [
-                    SizedBox(width: 20),
-                    Expanded(child: Text("Dark Mode/Light Mode")),
+                    const SizedBox(width: 20),
+                    const Expanded(child: Text("Dark Mode/Light Mode")),
+                    Switch(
+                      value: ref.read(themeViewModelProvider),
+                      onChanged: (value) {
+                        ref.read(themeViewModelProvider.notifier).changeTheme();
+                      },
+                    ),
                   ],
                 ),
               ),
