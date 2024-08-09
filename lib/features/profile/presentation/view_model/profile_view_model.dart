@@ -1,7 +1,6 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:final_assignment/app/navigator_key/navigator_key.dart';
 import 'package:final_assignment/core/common/show_my_snackbar.dart';
-
 import 'package:final_assignment/core/shared_prefs/user_shared_prefs.dart';
 import 'package:final_assignment/features/auth/domain/usecases/auth_usecase.dart';
 import 'package:final_assignment/features/auth/presentation/view/login_view.dart';
@@ -11,7 +10,6 @@ import 'package:final_assignment/features/profile/presentation/state/profile_sta
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:local_auth/local_auth.dart';
-
 
 final profileViewmodelProvider =
     StateNotifierProvider<ProfileViewmodel, CurrentProfileState>(
@@ -128,7 +126,7 @@ class ProfileViewmodel extends StateNotifier<CurrentProfileState> {
     // navigator.openLoginView();
 
     Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (context) => LoginView(),
+      builder: (context) => const LoginView(),
     ));
   }
 }

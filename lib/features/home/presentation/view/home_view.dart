@@ -1,12 +1,6 @@
 import 'dart:async';
 
-import 'package:all_sensors2/all_sensors2.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:final_assignment/core/common/show_my_snackbar.dart';
 import 'package:final_assignment/features/home/presentation/view/bottom_view/dashboard_view.dart';
-import 'package:final_assignment/features/home/presentation/view/bottom_view/profile_view.dart';
-import 'package:final_assignment/features/home/presentation/view/bottom_view/setting_view.dart';
-import 'package:final_assignment/features/home/presentation/viewmodel/home_viewmodel.dart';
 import 'package:final_assignment/features/profile/presentation/view/profile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -23,12 +17,11 @@ class _HomeViewState extends ConsumerState<HomeView> {
   List<Widget> lstScreen = [
     const DashboardView(),
     const ProfileView(),
-    const SettingView(),
   ];
   bool showYesNoDialog = true;
   bool isDialogShowing = false;
 
-  List<double> _gyroscopeValues = [];
+  final List<double> _gyroscopeValues = [];
   final List<StreamSubscription<dynamic>> _streamSubscription = [];
 
   @override
@@ -84,10 +77,6 @@ class _HomeViewState extends ConsumerState<HomeView> {
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'Profile',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Setting',
           ),
         ],
         currentIndex: selectedIndex,
