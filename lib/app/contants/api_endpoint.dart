@@ -16,10 +16,17 @@ class ApiEndpoints {
 // ============Property Routes ==========
   static const String getAllProperty = 'property/get_all_property';
   static const String updateProperty = 'property/update_property';
-
   static const String paginationProperty = 'property/pagination';
   static const int limitPage = 2;
 
   // static const String imageUrl = 'http://192.168.1.133:5000/property/'
   static const String imageUrl = 'http://10.0.2.2:5000/property/';
+
+  // ====================== Booking Routes ======================
+  static const String createBooking = 'booking/bookings';
+  static const String getAllBookings = 'booking/all_bookings';
+  static const String getUserBookings = 'booking/mybookings';
+  static const String updateBookingStatus = 'booking/bookings/status';
+  static const String updatePaymentMethod = 'booking/bookings/payment';
+
 }

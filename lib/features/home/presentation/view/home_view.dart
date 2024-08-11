@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:final_assignment/features/home/presentation/view/bottom_view/dashboard_view.dart';
 import 'package:final_assignment/features/profile/presentation/view/profile_view.dart';
 import 'package:flutter/material.dart';
@@ -21,10 +19,10 @@ class _HomeViewState extends ConsumerState<HomeView> {
   bool showYesNoDialog = true;
   bool isDialogShowing = false;
 
-  final List<double> _gyroscopeValues = [];
-  final List<StreamSubscription<dynamic>> _streamSubscription = [];
+  // final List<double> _gyroscopeValues = [];
+  // final List<StreamSubscription<dynamic>> _streamSubscription = [];
 
-  @override
+  // @override
   // void initState() {
   //   _streamSubscription.add(gyroscopeEvents!.listen((GyroscopeEvent event) {
   //     setState(() {

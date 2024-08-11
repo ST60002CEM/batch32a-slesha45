@@ -81,22 +81,24 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
         child: Column(
           children: [
             const SizedBox(height: 20),
-            // profileState.isLoading
-            //     ? const CircularProgressIndicator()
-            //     : Text("${profileState.authEntity?.fName}"),
-            ProfileMenu(
-              text: "${profileState.authEntity?.fName}"
-                  " "
-                  "${profileState.authEntity?.lName}",
-              icon: "assets/icons/profile.svg",
-              press: () {
-                if (mounted) {
-                  ref
-                      .read(profileViewmodelProvider.notifier)
-                      .openEditProfileView();
-                }
-              },
-            ),
+            profileState.isLoading
+                ? const CircularProgressIndicator()
+                : Text("${profileState.authEntity?.fName}"
+                    " "
+                    "${profileState.authEntity?.lName}"),
+            // ProfileMenu(
+            //   text: "${profileState.authEntity?.fName}"
+            //       " "
+            //       "${profileState.authEntity?.lName}",
+            //   icon: "assets/icons/profile.svg",
+            //   press: () {
+            //     if (mounted) {
+            //       ref
+            //           .read(profileViewmodelProvider.notifier)
+            //           .openEditProfileView();
+            //     }
+            //   },
+            // ),
             // ProfileMenu(
             //   text: "Notifications",
             //   icon: "assets/icons/Bell.svg",
@@ -158,7 +160,7 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                     const SizedBox(width: 20),
                     const Expanded(child: Text("Dark Mode/Light Mode")),
                     Switch(
-                      value: ref.read(themeViewModelProvider),
+                      value: ref.watch(themeViewModelProvider),
                       onChanged: (value) {
                         ref.read(themeViewModelProvider.notifier).changeTheme();
                       },

@@ -69,22 +69,22 @@ class MyPropertyCard extends ConsumerWidget {
                         color: isDark ? Colors.grey[400] : Colors.grey,
                       ),
                     ),
-                    const SizedBox(height: 4),
-                    Text(
-                      property.propertyCategory,
-                      style: TextStyle(
-                        fontSize: isTablet ? 16 : 14,
-                        color: isDark ? Colors.grey[400] : Colors.grey,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      property.propertyPrice.toString(),
-                      style: TextStyle(
-                        fontSize: isTablet ? 16 : 14,
-                        color: isDark ? Colors.grey[400] : Colors.grey,
-                      ),
-                    ),
+                    // const SizedBox(height: 4),
+                    // Text(
+                    //   property.propertyCategory,
+                    //   style: TextStyle(
+                    //     fontSize: isTablet ? 16 : 14,
+                    //     color: isDark ? Colors.grey[400] : Colors.grey,
+                    //   ),
+                    // ),
+                    // const SizedBox(height: 4),
+                    // Text(
+                    //   property.propertyPrice.toString(),
+                    //   style: TextStyle(
+                    //     fontSize: isTablet ? 16 : 14,
+                    //     color: isDark ? Colors.grey[400] : Colors.grey,
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
