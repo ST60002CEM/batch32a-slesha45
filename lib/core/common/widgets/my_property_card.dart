@@ -1,5 +1,6 @@
 import 'package:final_assignment/app/contants/api_endpoint.dart';
 import 'package:final_assignment/core/common/provider/theme_view_model_provider.dart';
+import 'package:final_assignment/features/booking/presentation/view/booking_view.dart';
 import 'package:final_assignment/features/home/domain/entity/property_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -115,7 +116,12 @@ class MyPropertyCard extends ConsumerWidget {
                 color: isDark ? Colors.orange : Colors.brown,
               ),
               onPressed: () {
-                // Add your view module button logic here
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const BookingView(),
+                  ),
+                );
               },
             ),
           ),
