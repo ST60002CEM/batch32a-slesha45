@@ -2,45 +2,54 @@
 // import 'package:final_assignment/features/booking/domain/entity/booking_entity.dart';
 // import 'package:flutter_riverpod/flutter_riverpod.dart';
 // import 'package:json_annotation/json_annotation.dart';
- 
+
 // part 'booking_api_model.g.dart';
- 
+
 // final bookingApiModelProvider = Provider<BookingApiModel>((ref) => BookingApiModel.empty());
- 
+
 // @JsonSerializable()
 // class BookingApiModel extends Equatable {
 //   @JsonKey(name: '_id')
 //   final String? id;
-//   final String userId;
-//   final String propertyId;
+//   final  userId;
+//   final  propertyId;
 //   final DateTime date;
 //   final String time;
 //   final String status;
 //   final String paymentMethod;
- 
+
 //   const BookingApiModel({
-//     required this.id,
-//     required this.userId,
-//     required this.propertyId,
+//      this.id,
+//      this.userId,
+//      this.propertyId,
 //     required this.date,
 //     required this.time,
 //     this.status = 'pending',
-//     this.paymentMethod = 'Pay on arrival',
+//     this.paymentMethod = 'Cash on arrival',
 //   });
 
-//    BookingApiModel.empty()
-//       : id = '',
-//       userId = '',
-//       propertyId = '',
-//       date = DateTime.now(),
-//       time = '',
-//       status = 'pending',
-//       paymentMethod = 'Pay on arrival';
- 
+//   // Factory constructor for creating an empty instance
+//   factory BookingApiModel.empty() {
+//     return BookingApiModel(
+//       id: '',
+//       userId: '',
+//       propertyId: '',
+//       date: DateTime.now(),
+//       time: '',
+//       status: 'pending',
+//       paymentMethod: 'Cash on arrival',
+//     );
+//   }
+
+//   @override
+//   List<Object?> get props => [id, userId, propertyId, date, time, status, paymentMethod];
+
+//   // Factory method for creating an instance from JSON
 //   factory BookingApiModel.fromJson(Map<String, dynamic> json) => _$BookingApiModelFromJson(json);
- 
+
+//   // Method to convert instance to JSON
 //   Map<String, dynamic> toJson() => _$BookingApiModelToJson(this);
- 
+
 //   // Convert API model to Entity
 //   BookingEntity toEntity() {
 //     return BookingEntity(
@@ -52,11 +61,11 @@
 //       paymentMethod: paymentMethod,
 //     );
 //   }
- 
-//   // Convert Entity to API model
-//   factory BookingApiModel.fromEntity(BookingEntity entity) {
+
+//   // Static method to create an API model from an Entity
+//   static BookingApiModel fromEntity(BookingEntity entity) {
 //     return BookingApiModel(
-//       id: entity.id,
+//       id: entity.userId,
 //       userId: entity.userId,
 //       propertyId: entity.propertyId,
 //       date: entity.date,
@@ -65,15 +74,96 @@
 //       paymentMethod: entity.paymentMethod,
 //     );
 //   }
-
-//   List<BookingEntity> toEntityList(List<BookingApiModel> bookings){
-//     return bookings.map((booking) => booking.toEntity()).toList();
-//   }
-
-//   List<BookingApiModel> fromEntityList(List<BookingEntity> bookings){
-//     return bookings.map((booking) => BookingApiModel.fromEntity(booking)).toList();
-//   }
- 
-//   @override
-//   List<Object?> get props => [id, userId, propertyId, date, time, status, paymentMethod];
 // }
+import 'package:equatable/equatable.dart';
+import 'package:final_assignment/features/auth/data/model/auth_api_model.dart';
+import 'package:final_assignment/features/booking/domain/entity/booking_entity.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+part 'booking_api_model.g.dart';
+
+final bookingModelProvider = Provider<BookingApiModel>((ref) {
+  return BookingApiModel.empty();
+});
+
+@JsonSerializable()
+class BookingApiModel extends Equatable {
+  @JsonKey(name: '_id')
+  final String? id;
+  final String userId;
+  final String propertyId;
+  final DateTime date;
+  final String time;
+  final String status;
+  final String paymentMethod;
+  final AuthApiModel? authEntity;
+
+  BookingApiModel({
+    this.id,
+    required this.userId,
+    required this.propertyId,
+    required this.date,
+    required this.time,
+    this.status = 'pending',
+    this.paymentMethod = 'Pay on arrival',
+    this.authEntity,
+  });
+
+  BookingApiModel.empty()
+      : id = '',
+        userId = '',
+        propertyId = '',
+        date = DateTime.now(),
+        time = '',
+        paymentMethod = 'Pay on arrival',
+        status = '',
+        authEntity = AuthApiModel.empty();
+
+  // from json
+  factory BookingApiModel.fromJson(Map<String, dynamic> json) =>
+      _$BookingApiModelFromJson(json);
+
+  // to json
+  Map<String, dynamic> toJson() => _$BookingApiModelToJson(this);
+
+// from entity
+ factory BookingApiModel.fromEntity(BookingEntity entity) => BookingApiModel(
+  id: entity.id,
+  userId: entity.userId,
+  propertyId: entity.propertyId,
+  date: entity.date,
+  time: entity.time,
+  paymentMethod: entity.paymentMethod,
+  status: entity.status,
+  authEntity: entity.authEntity != null ? AuthApiModel.fromEntity(entity.authEntity!) : null,
+);
+
+  // to entity
+  BookingEntity toEntity() => BookingEntity(
+        id: id,
+        userId: userId,
+        propertyId: propertyId,
+        date: date,
+        time: time,
+        paymentMethod: paymentMethod,
+        status: status,
+        authEntity: authEntity != null ? authEntity!.toEntity() : null,
+      );
+
+  // to entity list
+  static List<BookingEntity> toEntities(List<BookingApiModel> models) =>
+      models.map((model) => model.toEntity()).toList();
+
+  @override
+  List<Object?> get props => [
+        id,
+        userId,
+        propertyId,
+        date,
+        time,
+        paymentMethod,
+        status,
+        authEntity,
+      ];
+}
