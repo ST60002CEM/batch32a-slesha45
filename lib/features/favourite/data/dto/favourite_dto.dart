@@ -8,11 +8,13 @@ class FavouriteDto {
 
 //   from json
   factory FavouriteDto.fromJson(Map<String, dynamic> json) {
+    print(json['favorites']); // Add this line to see the parsed data
     return FavouriteDto(
-      success: json['success'],
-      favorites: (json['favorites'] as List)
-          .map((property) => Favourite.fromJson(property))
-          .toList(),
+      success: json['success'] ?? false,
+      favorites: (json['favorites'] as List?)
+              ?.map((properties) => Favourite.fromJson(properties))
+              .toList() ??
+          [],
     );
   }
 
@@ -20,7 +22,7 @@ class FavouriteDto {
   Map<String, dynamic> toJson() {
     return {
       'success': success,
-      'favorites': favorites.map((property) => property.toJson()).toList(),
+      'favorites': favorites.map((properties) => properties.toJson()).toList(),
     };
   }
 }

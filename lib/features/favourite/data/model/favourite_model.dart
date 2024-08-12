@@ -15,20 +15,20 @@ final favouriteApiModelProvider = Provider<Favourite>((ref) {
 class Favourite extends Equatable {
   @JsonKey(name: '_id')
   final String id;
-  final PropertyApiModel property;
+  final PropertyApiModel properties;
   final AuthApiModel user;
 
   const Favourite({
 
     required this.id,
-    required this.property,
+    required this.properties,
     required this.user,
   });
 
   // empty
    const Favourite.empty()
       : id = '',
-        property = const PropertyApiModel.empty(),
+        properties = const PropertyApiModel.empty(),
         user =  const AuthApiModel.empty();
 
 
@@ -41,7 +41,7 @@ class Favourite extends Equatable {
   FavouriteEntity toEntity() {
     return FavouriteEntity(
       id: id,
-      property: property.toEntity(),
+      properties: properties.toEntity(),
       user: user.toEntity(),
     );
   }
@@ -50,7 +50,7 @@ class Favourite extends Equatable {
   factory Favourite.fromEntity(FavouriteEntity entity) {
     return Favourite(
       id: entity.id,
-      property: PropertyApiModel.fromEntity(entity.property),
+      properties: PropertyApiModel.fromEntity(entity.properties),
       user: AuthApiModel.fromEntity(entity.user),
     );
   }
@@ -66,5 +66,5 @@ class Favourite extends Equatable {
   }
 
   @override
-  List<Object?> get props => [id, property, user];
+  List<Object?> get props => [id, properties, user];
 }

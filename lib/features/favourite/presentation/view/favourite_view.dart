@@ -27,7 +27,7 @@ class _FavouriteViewState extends ConsumerState<FavouriteView> {
     final state = ref.watch(favouriteViewModelProvider);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Favourite Properties'),
+        title: const Text('Favourites'),
         elevation: 0,
       ),
       body: RefreshIndicator(
@@ -80,18 +80,26 @@ class _FavouriteViewState extends ConsumerState<FavouriteView> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Slidable(
-        key: Key(property.property.id ?? ''),  // Ensure the key is unique and non-null
+        key: Key(property.properties.id ??
+            ''), // Ensure the key is unique and non-null
         endActionPane: ActionPane(
           motion: const ScrollMotion(),
           dismissible: DismissiblePane(onDismissed: () {
-            ref.read(favouriteViewModelProvider.notifier).removeFavourite(property.id);
-            showMySnackBar(message: 'Property removed from favourites', color: Colors.red);
+            ref
+                .read(favouriteViewModelProvider.notifier)
+                .removeFavourite(property.id);
+            showMySnackBar(
+                message: 'Property removed from favourites', color: Colors.red);
           }),
           children: [
             SlidableAction(
               onPressed: (context) {
-                ref.read(favouriteViewModelProvider.notifier).removeFavourite(property.id);
-                showMySnackBar(message: 'Property removed from favourites', color: Colors.red);
+                ref
+                    .read(favouriteViewModelProvider.notifier)
+                    .removeFavourite(property.id);
+                showMySnackBar(
+                    message: 'Property removed from favourites',
+                    color: Colors.red);
               },
               backgroundColor: Colors.red,
               foregroundColor: Colors.white,
@@ -107,11 +115,11 @@ class _FavouriteViewState extends ConsumerState<FavouriteView> {
             leading: CircleAvatar(
               radius: 30,
               backgroundImage: NetworkImage(
-                '${ApiEndpoints.imageUrl}${property.property.propertyImage}',
+                '${ApiEndpoints.imageUrl}${property.properties.propertyImage}',
               ),
             ),
             title: Text(
-              property.property.propertyTitle,
+              property.properties.propertyTitle,
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
             subtitle: Column(
@@ -119,7 +127,7 @@ class _FavouriteViewState extends ConsumerState<FavouriteView> {
               children: [
                 const SizedBox(height: 4),
                 Text(
-                  property.property.propertyCategory,
+                  property.properties.propertyCategory,
                   style: TextStyle(color: Colors.grey[600]),
                 ),
               ],
