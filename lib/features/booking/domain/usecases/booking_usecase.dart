@@ -28,4 +28,27 @@
 
 // }
 
- 
+ import 'package:dartz/dartz.dart';
+import 'package:final_assignment/core/failure/failure.dart';
+import 'package:final_assignment/features/booking/domain/entity/booking_entity.dart';
+import 'package:final_assignment/features/booking/domain/repository/booking_repository.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+final bookingUsecaseProvider = Provider<BookingUsecase>((ref) {
+  return BookingUsecase(ref.watch(bookingRepositoryProvider));
+});
+
+class BookingUsecase {
+  final BookingRepository repository;
+
+  BookingUsecase(this.repository);
+
+  Future<Either<Failure, bool>> addBooking(BookingEntity booking) {
+    return repository.createBooking(booking);
+  }
+
+  Future<Either<Failure, List<BookingEntity>>> getBookings() {
+    return repository.getBookings();
+  }
+
+}
