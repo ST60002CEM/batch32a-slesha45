@@ -9,8 +9,8 @@ part of 'booking_api_model.dart';
 BookingApiModel _$BookingApiModelFromJson(Map<String, dynamic> json) =>
     BookingApiModel(
       id: json['_id'] as String?,
-      userId: json['userId'] as String,
-      propertyId: json['propertyId'] as String,
+      user: json['user'] as String,
+      property: json['property'] as String,
       date: DateTime.parse(json['date'] as String),
       time: json['time'] as String,
       status: json['status'] as String? ?? 'pending',
@@ -23,8 +23,8 @@ BookingApiModel _$BookingApiModelFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$BookingApiModelToJson(BookingApiModel instance) =>
     <String, dynamic>{
       '_id': instance.id,
-      'userId': instance.userId,
-      'propertyId': instance.propertyId,
+      'user': instance.user,
+      'property': instance.property,
       'date': instance.date.toIso8601String(),
       'time': instance.time,
       'status': instance.status,

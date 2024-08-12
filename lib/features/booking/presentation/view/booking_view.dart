@@ -94,14 +94,14 @@ class _BookingViewState extends ConsumerState<BookingView> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       // Assuming you have the userId and propertyId
-                      const userId =
-                          'someUserId'; // Replace with actual user ID
-                      const propertyId =
-                          'somepropertyId'; // Replace with actual property ID
+                       const user =
+                          'someUserId';
+                      const property =
+                          'somepropertyId';
 
                       final booking = BookingEntity(
-                        userId: userId,
-                        propertyId: propertyId,
+                        user: user,
+                        property: property,
                         date: selectedDate!,
                         time: _timeController.text,
                         status: 'pending',

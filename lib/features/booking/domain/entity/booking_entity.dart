@@ -3,8 +3,8 @@ import 'package:final_assignment/features/auth/domain/entity/auth_entity.dart';
  
 class BookingEntity extends Equatable {
   final String? id;
-  final String userId;
-  final String propertyId;
+  final String user;
+  final String property;
   final DateTime date;
   final String time;
   final String status;
@@ -13,8 +13,8 @@ class BookingEntity extends Equatable {
  
   const BookingEntity({
     this.id,
-    required this.userId,
-    required this.propertyId,
+    required this.user,
+    required this.property,
     required this.date,
     required this.time,
     this.status = 'pending',
@@ -25,8 +25,8 @@ class BookingEntity extends Equatable {
   @override
   List<Object?> get props => [
         id,
-        userId,
-        propertyId,
+        user,
+        property,
         date,
         time,
         status,
