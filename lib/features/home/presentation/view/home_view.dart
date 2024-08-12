@@ -1,3 +1,4 @@
+import 'package:final_assignment/features/favourite/presentation/view/favourite_view.dart';
 import 'package:final_assignment/features/home/presentation/view/bottom_view/dashboard_view.dart';
 import 'package:final_assignment/features/profile/presentation/view/profile_view.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
   int selectedIndex = 0;
   List<Widget> lstScreen = [
     const DashboardView(),
+    const FavouriteView(),
     const ProfileView(),
   ];
   bool showYesNoDialog = true;
@@ -71,6 +73,10 @@ class _HomeViewState extends ConsumerState<HomeView> {
           BottomNavigationBarItem(
             icon: Icon(Icons.dashboard),
             label: 'Dashboard',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Favourite',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
