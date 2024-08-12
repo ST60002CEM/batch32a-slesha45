@@ -13,7 +13,7 @@
 //     required this.isLoading,
 //   });
  
-//   factory BookingState.initial() {
+//   factory BookingState.initial () {
 //     return BookingState(
 //       bookings: [],
 //       hasReachedMax: false,
@@ -36,3 +36,27 @@
 //     );
 //   }
 // }
+
+class BookingState {
+  final String? error;
+  final bool isLoading;
+
+  BookingState({required this.error, required this.isLoading});
+
+  factory BookingState.initial() {
+    return BookingState(
+      error: null,
+      isLoading: false,
+    );
+  }
+
+  BookingState copyWith({
+    String? error,
+    bool? isLoading,
+  }) {
+    return BookingState(
+      error: error ?? this.error,
+      isLoading: isLoading ?? this.isLoading,
+    );
+  }
+}
