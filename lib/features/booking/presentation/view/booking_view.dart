@@ -5,8 +5,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 class BookingView extends ConsumerStatefulWidget {
-  const BookingView({super.key});
+  final String? receivedPropertyId;
 
+  const BookingView(this.receivedPropertyId, {super.key});
   @override
   ConsumerState<BookingView> createState() => _BookingViewState();
 }
@@ -94,14 +95,11 @@ class _BookingViewState extends ConsumerState<BookingView> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       // Assuming you have the userId and propertyId
-                       const user =
-                          'someUserId';
-                      const property =
-                          'somepropertyId';
+
+                      final property = widget.receivedPropertyId;
 
                       final booking = BookingEntity(
-                        user: user,
-                        property: property,
+                        property: property!,
                         date: selectedDate!,
                         time: _timeController.text,
                         status: 'pending',

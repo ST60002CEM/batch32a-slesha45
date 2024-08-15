@@ -14,22 +14,22 @@
 //     dio: ref.read(httpServiceProvider),
 //     userSharedPrefs: ref.read(userSharedPrefsProvider),
 //   ),
-  
+
 // );
 // class BookingRemoteDataSource {
 //   final Dio dio;
 //   final UserSharedPrefs userSharedPrefs;
- 
+
 //   BookingRemoteDataSource({
 //     required this.dio,
 //     required this.userSharedPrefs,
 //   });
- 
+
 //   Future<Either<Failure, BookingEntity>> createBooking(BookingEntity booking) async {
 //     try {
 //       final token = await userSharedPrefs.getUserToken();
 //       token.fold((l) => throw Failure(error: l.error), (r) => r);
- 
+
 //       // Use the static fromEntity method
 //       final response = await dio.post(
 //         ApiEndpoints.baseUrl + ApiEndpoints.createBooking,
@@ -40,7 +40,7 @@
 //           },
 //         ),
 //       );
- 
+
 //       if (response.statusCode == 201) {
 //         // Use the factory method fromJson to parse the response
 //         return Right(BookingApiModel.fromJson(response.data).toEntity());
@@ -50,12 +50,12 @@
 //       return Left(Failure(error: e.error.toString()));
 //     }
 //   }
- 
+
 //   Future<Either<Failure, List<BookingEntity>>> getUserBookings() async {
 //     try {
 //       final token = await userSharedPrefs.getUserToken();
 //       token.fold((l) => throw Failure(error: l.error), (r) => r);
- 
+
 //       final response = await dio.get(
 //         ApiEndpoints.baseUrl + ApiEndpoints.getUserBookings,
 //         options: Options(
@@ -64,7 +64,7 @@
 //           },
 //         ),
 //       );
- 
+
 //       if (response.statusCode == 200) {
 //         final bookings = (response.data as List)
 //             .map((booking) => BookingApiModel.fromJson(booking).toEntity())
@@ -76,7 +76,7 @@
 //       return Left(Failure(error: e.error.toString()));
 //     }
 //   }
- 
+
 //   // Implement other methods for updating booking status, updating payment method, etc.
 // }
 import 'package:dartz/dartz.dart';
@@ -102,14 +102,16 @@ class BookingRemoteDataSource {
 
   BookingRemoteDataSource(this.dio, this.userSharedPreferences);
 
-  Future<Either<Failure, bool>> createBooking(
-      BookingEntity booking) async {
+  Future<Either<Failure, bool>> createBooking(BookingEntity booking) async {
     try {
       String? token;
       final data = await userSharedPreferences.getUserToken();
 
       data.fold((l) => token = null, (r) => token = r);
-
+      print('test');
+      print("token: $token");
+      print(booking);
+      print(BookingApiModel.fromEntity(booking).toJson());
       final response = await dio.post(
         ApiEndpoints.createBooking,
         data: BookingApiModel.fromEntity(booking).toJson(),
@@ -118,7 +120,7 @@ class BookingRemoteDataSource {
         ),
       );
       if (response.statusCode == 201) {
-        return Right(true);
+        return const Right(true);
       } else {
         throw Exception('Error creating booking');
       }

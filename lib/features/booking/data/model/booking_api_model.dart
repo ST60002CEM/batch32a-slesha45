@@ -91,7 +91,9 @@ final bookingModelProvider = Provider<BookingApiModel>((ref) {
 class BookingApiModel extends Equatable {
   @JsonKey(name: '_id')
   final String? id;
-  final String user;
+  // @JsonKey(name: 'userId')
+  final String? user;
+  // @JsonKey(name: 'propertyId')
   final String property;
   final DateTime date;
   final String time;
@@ -99,7 +101,7 @@ class BookingApiModel extends Equatable {
   final String paymentMethod;
   final AuthApiModel? authEntity;
 
-  BookingApiModel({
+  const BookingApiModel({
     this.id,
     required this.user,
     required this.property,
@@ -118,7 +120,7 @@ class BookingApiModel extends Equatable {
         time = '',
         paymentMethod = 'Pay on arrival',
         status = '',
-        authEntity = AuthApiModel.empty();
+        authEntity = const AuthApiModel.empty();
 
   // from json
   factory BookingApiModel.fromJson(Map<String, dynamic> json) =>
@@ -128,16 +130,18 @@ class BookingApiModel extends Equatable {
   Map<String, dynamic> toJson() => _$BookingApiModelToJson(this);
 
 // from entity
- factory BookingApiModel.fromEntity(BookingEntity entity) => BookingApiModel(
-  id: entity.id,
-  user: entity.user,
-  property: entity.property,
-  date: entity.date,
-  time: entity.time,
-  paymentMethod: entity.paymentMethod,
-  status: entity.status,
-  authEntity: entity.authEntity != null ? AuthApiModel.fromEntity(entity.authEntity!) : null,
-);
+  factory BookingApiModel.fromEntity(BookingEntity entity) => BookingApiModel(
+        id: entity.id,
+        user: entity.user,
+        property: entity.property,
+        date: entity.date,
+        time: entity.time,
+        paymentMethod: entity.paymentMethod,
+        status: entity.status,
+        authEntity: entity.authEntity != null
+            ? AuthApiModel.fromEntity(entity.authEntity!)
+            : null,
+      );
 
   // to entity
   BookingEntity toEntity() => BookingEntity(
@@ -148,7 +152,7 @@ class BookingApiModel extends Equatable {
         time: time,
         paymentMethod: paymentMethod,
         status: status,
-        authEntity: authEntity != null ? authEntity!.toEntity() : null,
+        authEntity: authEntity?.toEntity(),
       );
 
   // to entity list

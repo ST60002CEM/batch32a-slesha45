@@ -9,7 +9,7 @@ part of 'booking_api_model.dart';
 BookingApiModel _$BookingApiModelFromJson(Map<String, dynamic> json) =>
     BookingApiModel(
       id: json['_id'] as String?,
-      user: json['user'] as String,
+      user: json['user'] as String?,
       property: json['property'] as String,
       date: DateTime.parse(json['date'] as String),
       time: json['time'] as String,

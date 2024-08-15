@@ -67,25 +67,25 @@ class MyPropertyCard extends ConsumerWidget {
                       property.propertyLocation,
                       style: TextStyle(
                         fontSize: isTablet ? 16 : 14,
-                        color: isDark ? Colors.grey[400] : Colors.grey,
+                        color: isDark ? Colors.grey[400] : Colors.black,
                       ),
                     ),
-                    // const SizedBox(height: 4),
-                    // Text(
-                    //   property.propertyCategory,
-                    //   style: TextStyle(
-                    //     fontSize: isTablet ? 16 : 14,
-                    //     color: isDark ? Colors.grey[400] : Colors.grey,
-                    //   ),
-                    // ),
-                    // const SizedBox(height: 4),
-                    // Text(
-                    //   property.propertyPrice.toString(),
-                    //   style: TextStyle(
-                    //     fontSize: isTablet ? 16 : 14,
-                    //     color: isDark ? Colors.grey[400] : Colors.grey,
-                    //   ),
-                    // ),
+                    const SizedBox(height: 4),
+                    Text(
+                      property.propertyCategory,
+                      style: TextStyle(
+                        fontSize: isTablet ? 16 : 14,
+                        color: isDark ? Colors.grey[400] : Colors.black,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      "Rs ${property.propertyPrice}",
+                      style: TextStyle(
+                        fontSize: isTablet ? 16 : 14,
+                        color: isDark ? Colors.red[400] : Colors.red,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -119,7 +119,7 @@ class MyPropertyCard extends ConsumerWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const BookingView(),
+                    builder: (context) => BookingView(property.id!),
                   ),
                 );
               },
