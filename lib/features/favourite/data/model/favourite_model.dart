@@ -19,18 +19,16 @@ class Favourite extends Equatable {
   final AuthApiModel user;
 
   const Favourite({
-
     required this.id,
     required this.properties,
     required this.user,
   });
 
   // empty
-   const Favourite.empty()
+  const Favourite.empty()
       : id = '',
         properties = const PropertyApiModel.empty(),
-        user =  const AuthApiModel.empty();
-
+        user = const AuthApiModel.empty();
 
   factory Favourite.fromJson(Map<String, dynamic> json) =>
       _$FavouriteFromJson(json);
@@ -57,7 +55,9 @@ class Favourite extends Equatable {
 
   // to entity list
   static List<Favourite> toEntityList(List<FavouriteEntity> favourites) {
-    return favourites.map((favourite) => Favourite.fromEntity(favourite)).toList();
+    return favourites
+        .map((favourite) => Favourite.fromEntity(favourite))
+        .toList();
   }
 
   // from entity list

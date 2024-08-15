@@ -33,7 +33,7 @@ class FavouriteRemoteDataSource {
       Response response = await dio.get(ApiEndpoints.getUserFavorites,
           options: Options(headers: {'Authorization': 'Bearer $token'}));
       if (response.statusCode == 200) {
-        final favourite = FavouriteDto.fromJson(response.data).favorites;
+        final favourite = FavouriteDto.fromJson(response.data).data;
 
         return Right(favourite.map((e) => e.toEntity()).toList());
       }
