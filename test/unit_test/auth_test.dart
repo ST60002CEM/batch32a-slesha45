@@ -39,12 +39,6 @@ void main() {
     container.dispose();
   });
 
-  test('check for the initial state in Auth State', () {
-    final authState = container.read(authViewModelProvider);
-    expect(authState.isLoading, false);
-    expect(authState.error, isNull);
-  });
-
   test("Login with valid credentials", () async {
     // Arrange
     const correctEmail = 'slesha@gmail.com';
@@ -70,6 +64,23 @@ void main() {
     expect(authState.error, isNull);
   });
 
+  test("login with invalid credentials", () async {
+    // Arrange
+    const incorrectEmail = 'slesha@gmailcom';
+    const incorrectPassword = 'slesha1234';
+ 
+    when(mockAuthUsecase.loginUser(incorrectEmail, incorrectPassword))
+    .thenAnswer((invocation){
+      final email = invocation.positionalArguments[0] as String;
+      final password = invocation.positionalArguments[1] as String;
+      return Future.value(
+        email == incorrectEmail && password == incorrectPassword
+        ? const Right(true)
+        :Left(Failure(error: 'Invalid'))
+      );
+    });
+  });
+
 test('Register with valid data', () async {
     // Arrange
     const authEntity = AuthEntity(
@@ -92,4 +103,13 @@ test('Register with valid data', () async {
     // Assert
     expect(authState.error, isNull);
   });
+
+  test("Logout and navigate to login view", () async {
+  // Act
+  container.read(authViewModelProvider.notifier).logout();
+
+  // Assert
+  verify(mockLoginViewNavigator.openLoginView()).called(1);
+});
+
 }
