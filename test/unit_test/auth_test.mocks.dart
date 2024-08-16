@@ -17,8 +17,6 @@ import 'package:final_assignment/features/auth/domain/usecases/auth_usecase.dart
     as _i5;
 import 'package:final_assignment/features/auth/presentation/navigator/login_navigator.dart'
     as _i9;
-import 'package:final_assignment/features/auth/presentation/navigator/register_navigator.dart'
-    as _i10;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -244,9 +242,3 @@ class MockAuthUseCase extends _i1.Mock implements _i5.AuthUseCase {
 /// See the documentation for Mockito's code generation for more information.
 class MockLoginViewNavigator extends _i1.Mock
     implements _i9.LoginViewNavigator {}
-
-/// A class which mocks [RegisterViewNavigator].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockRegisterViewNavigator extends _i1.Mock
-    implements _i10.RegisterViewNavigator {}
