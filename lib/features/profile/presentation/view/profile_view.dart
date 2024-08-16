@@ -57,7 +57,7 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                 if (mounted) {
                   AwesomeDialog(
                     context: context,
-                    dialogType: DialogType.warning,
+                    dialogType: DialogType.noHeader,
                     title: 'Logout',
                     desc: 'Are You Sure You Want To Logout?',
                     btnOkOnPress: () {
