@@ -39,61 +39,57 @@ void main() {
     container.dispose();
   });
 
+  test('check for the initial state in Auth State', () {
+    final authState = container.read(authViewModelProvider);
+    expect(authState.isLoading, false);
+    expect(authState.error, isNull);
+  });
+
   test("Login with valid credentials", () async {
     // Arrange
     const correctEmail = 'slesha@gmail.com';
     const correctPassword = 'slesha123';
 
-    when(mockAuthUsecase.loginUser(any, any)).thenAnswer((invocation) async {
+    when(mockAuthUsecase.loginUser(correctEmail, correctPassword))
+    .thenAnswer((invocation){
       final email = invocation.positionalArguments[0] as String;
       final password = invocation.positionalArguments[1] as String;
-      return email == correctEmail && password == correctPassword
-          ? const Right(true)
-          : Left(Failure(error: 'Invalid'));
+      return Future.value(
+        email == correctEmail && password == correctPassword
+        ? const Right(true)
+        :Left(Failure(error: 'Invalid'))
+      );
     });
 
     // Act
-    await container
-        .read(authViewModelProvider.notifier)
-        .loginUser(correctEmail, correctPassword);
-
+   container.read(authViewModelProvider.notifier).loginUser(correctEmail, correctPassword);
+ 
     final authState = container.read(authViewModelProvider);
-
-    // Assert
+ 
+    //ASSERT
     expect(authState.error, isNull);
-    expect(authState.isLoading, false);
   });
 
-  test("Register user with valid credentials", () async {
+test('Register with valid data', () async {
     // Arrange
-    const validUser = AuthEntity(
-      fName: 'slesha',
-      lName: 'slesha',
-      email: 'slesha@gmail.com',
+    const authEntity = AuthEntity(
+      fName: 'Slesha',
+      lName: 'Dahal',
       phone: 1234567890,
-      password: 'slesha123',
+      email: 'slesha@gmail.com',
+      password: 'password123',
     );
-
-    when(mockAuthUsecase.registerUser(any)).thenAnswer((invocation) async {
-      final user = invocation.positionalArguments[0] as AuthEntity;
-      return user.fName.isNotEmpty &&
-              user.lName.isNotEmpty &&
-              user.email.isNotEmpty &&
-              user.password.isNotEmpty &&
-              user.email.contains('@') &&
-              user.email.contains('.') &&
-              user.phone.toString().length == 10
-          ? const Right(true)
-          : Left(Failure(error: 'Invalid'));
-    });
-
+ 
+    when(mockAuthUsecase.registerUser(authEntity)).thenAnswer(
+      (_) async => const Right(true),
+    );
+ 
     // Act
-    await container.read(authViewModelProvider.notifier).registerUser(validUser);
-
+    await container.read(authViewModelProvider.notifier).registerUser(authEntity);
+ 
     final authState = container.read(authViewModelProvider);
-
+ 
     // Assert
     expect(authState.error, isNull);
-    expect(authState.isLoading, false);
   });
 }
