@@ -18,6 +18,7 @@ class ApiEndpoints {
   static const String updateProperty = 'property/update_property';
   static const String paginationProperty = 'property/pagination';
   static const int limitPage = 2;
+  static const String getSingleProperty = 'property/get_single_property';
 
   // static const String imageUrl = 'http://192.168.1.133:5000/property/'
   static const String imageUrl = 'http://10.0.2.2:5000/property/';
