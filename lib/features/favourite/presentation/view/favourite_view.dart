@@ -107,7 +107,8 @@ class FavouriteView extends StatelessWidget {
                 ),
               ],
             ),
-            trailing: const Icon(Icons.chevron_right),
+            trailing:
+                const Icon(Icons.delete_outline_outlined, color: Colors.red),
             onTap: () {
               // Static page won't navigate anywhere
             },
