@@ -26,8 +26,7 @@ class SingleView extends StatelessWidget {
     final imageUrl = '${ApiEndpoints.imageUrl}${singleProperty.propertyImage}';
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     final primaryColor = Colors.purple.shade800;
-    final secondaryColor = Colors.pink.shade400;
- 
+     
     return Scaffold(
       backgroundColor: isDarkMode ? Colors.black : Colors.white,
       body: SafeArea(

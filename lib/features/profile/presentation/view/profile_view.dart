@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:final_assignment/core/common/provider/theme_view_model_provider.dart';
 import 'package:final_assignment/features/auth/presentation/viewmodel/auth_view_model.dart';
@@ -7,8 +5,6 @@ import 'package:final_assignment/features/profile/presentation/view_model/profil
 import 'package:final_assignment/features/profile/presentation/widgets/profile_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-//import 'package:flutter_svg/flutter_svg.dart';
-
 class ProfileView extends ConsumerStatefulWidget {
   const ProfileView({super.key});
 
@@ -19,49 +15,6 @@ class ProfileView extends ConsumerStatefulWidget {
 class _ProfileViewState extends ConsumerState<ProfileView> {
   bool showYesNoDialog = true;
   bool isDialogShowing = false;
-
-  final List<double> _gyroscopeValues = [];
-  final List<StreamSubscription<dynamic>> _streamSubscription = [];
-
-  @override
-  // void initState() {
-  //   _streamSubscription.add(gyroscopeEvents!.listen((GyroscopeEvent event) {
-  //     setState(() {
-  //       _gyroscopeValues = <double>[event.x, event.y, event.z];
-
-  //       _checkGyroscopeValues(_gyroscopeValues);
-  //     });
-  //   }));
-
-  //   super.initState();
-  // }
-
-  // void _checkGyroscopeValues(List<double> values) async {
-  //   const double threshold = 4; // Example threshold value, adjust as needed
-  //   if (values.any((value) => value.abs() > threshold)) {
-  //     if (showYesNoDialog && !isDialogShowing) {
-  //       isDialogShowing = true;
-  //       final result = await AwesomeDialog(
-  //         context: context,
-  //         dialogType: DialogType.warning,
-  //         title: 'Logout',
-  //         desc: 'Are You Sure You Want To Logout?',
-  //         btnOkOnPress: () {
-  //           ref.read(authViewModelProvider.notifier).logout();
-  //         },
-  //         btnCancelOnPress: () {},
-  //       ).show();
-
-  //       isDialogShowing = false;
-  //       if (result) {
-  //         showMySnackBar(
-  //           message: 'Logged Out Successfully!',
-  //           color: Colors.green,
-  //         );
-  //       }
-  //     }
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -86,33 +39,6 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                 : Text("${profileState.authEntity?.fName}"
                     " "
                     "${profileState.authEntity?.lName}"),
-            // ProfileMenu(
-            //   text: "${profileState.authEntity?.fName}"
-            //       " "
-            //       "${profileState.authEntity?.lName}",
-            //   icon: "assets/icons/profile.svg",
-            //   press: () {
-            //     if (mounted) {
-            //       ref
-            //           .read(profileViewmodelProvider.notifier)
-            //           .openEditProfileView();
-            //     }
-            //   },
-            // ),
-            // ProfileMenu(
-            //   text: "Notifications",
-            //   icon: "assets/icons/Bell.svg",
-            //   press: () {
-            //     // Navigate to Notifications screen
-            //   },
-            // ),
-            // ProfileMenu(
-            //   text: "Change Password",
-            //   icon: "assets/icons/password.svg",
-            //   press: () {
-            //     // Navigate to Settings screen
-            //   },
-            // ),
             ProfileMenu(
               text: "Enable Finger Print",
               icon: "assets/icons/fingerprint.svg",

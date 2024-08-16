@@ -49,10 +49,10 @@ testWidgets('submits form with valid data', (tester) async {
       await tester.pumpAndSettle();
 
       // Enter valid data
-      await tester.enterText(find.byType(TextFormField).at(0), 'John'); // First name
-      await tester.enterText(find.byType(TextFormField).at(1), 'Doe'); // Last name
-      await tester.enterText(find.byType(TextFormField).at(2), 'john.doe@example.com'); // Email
-      await tester.enterText(find.byType(TextFormField).at(3), '+1234567890'); // Phone
+      await tester.enterText(find.byType(TextFormField).at(0), 'Slesha'); // First name
+      await tester.enterText(find.byType(TextFormField).at(1), 'Dahal'); // Last name
+      await tester.enterText(find.byType(TextFormField).at(2), 'slesha@gmail.com'); // Email
+      await tester.enterText(find.byType(TextFormField).at(3), '9876543211'); // Phone
       await tester.enterText(find.byType(TextFormField).at(4), 'password'); // Password
       await tester.enterText(find.byType(TextFormField).at(5), 'password'); // Confirm Password
 
@@ -65,6 +65,5 @@ testWidgets('submits form with valid data', (tester) async {
       expect(find.text('Please enter a valid email address'), findsNothing);
       expect(find.text('Passwords do not match'), findsNothing);
 
-      // Verify any further actions, such as navigation or state changes, as needed
     });
 }
