@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:final_assignment/features/auth/domain/entity/auth_entity.dart';
-import 'package:final_assignment/features/home/domain/entity/property_entity.dart';
  
 class BookingEntity extends Equatable {
   final String? id;
