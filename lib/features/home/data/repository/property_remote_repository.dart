@@ -22,5 +22,9 @@ class PropertyRemoteRepository implements IPropertyRepository {
     return propertyRemoteDataSource.pagination(page: page, limit: limit);
   }
   
+    @override
+  Future<Either<Failure, PropertyEntity>> getPropertyById(String id) {
+    return propertyRemoteDataSource.getSingleProperty(id);
+  }
   
 }
