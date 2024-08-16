@@ -40,4 +40,6 @@ class BookingListViewModel extends StateNotifier<BookingListState> {
   void openKhaltiView() {
     navigator.openKhaltiView();
   }
+
+  void getbookings(param0, selectedQuantity, propertyPrice) {}
 }
