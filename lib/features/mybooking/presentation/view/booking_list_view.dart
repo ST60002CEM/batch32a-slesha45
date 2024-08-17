@@ -1,4 +1,6 @@
+import 'package:final_assignment/core/common/provider/theme_view_model_provider.dart';
 import 'package:final_assignment/features/mybooking/presentation/viewmodel/booking_list_view_model.dart';
+import 'package:final_assignment/features/mybooking/presentation/widgets/dialog_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -9,10 +11,14 @@ class BookingListView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(bookingListViewModelProvider);
+    final isDark =
+        ref.watch(themeViewModelProvider); // Watch the theme provider
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('My Booking List'),
+        backgroundColor:
+            isDark ? Colors.grey : Colors.brown, // AppBar color based on theme
       ),
       body: state.isLoading
           ? const Center(child: CircularProgressIndicator())
@@ -30,14 +36,16 @@ class BookingListView extends ConsumerWidget {
                             scrollDirection: Axis.horizontal,
                             child: DataTable(
                               border: TableBorder.all(
-                                color: Colors.grey.withOpacity(0.3),
+                                color: isDark
+                                    ? Colors.white.withOpacity(0.3)
+                                    : Colors.grey.withOpacity(
+                                        0.3), // Border color based on theme
                                 width: 1.0,
                               ),
-                              columnSpacing: 0.0, // Reduced spacing for closer alignment
+                              columnSpacing: 0.0,
                               headingRowHeight: 60,
                               dataRowHeight: 56,
-                              headingRowColor: MaterialStateColor.resolveWith(
-                                  (states) => Colors.brown[200]!),
+                              // Heading color based on theme
                               columns: [
                                 DataColumn(
                                   label: SizedBox(
@@ -80,7 +88,7 @@ class BookingListView extends ConsumerWidget {
                                 ),
                                 DataColumn(
                                   label: SizedBox(
-                                    width: columnWidth - 10, // Slightly reduce the width
+                                    width: columnWidth - 10,
                                     child: const Text(
                                       'Action',
                                       style: TextStyle(
@@ -92,19 +100,23 @@ class BookingListView extends ConsumerWidget {
                                   ),
                                 ),
                               ],
-                              rows: List<DataRow>.generate(
+                              rows: List.generate(
                                 state.bookings.length,
                                 (index) {
                                   final booking = state.bookings[index];
                                   final formattedDate = DateFormat('yyyy-MM-dd')
                                       .format(booking.date);
                                   final color = index.isEven
-                                      ? Colors.brown[50]
-                                      : Colors.white;
+                                      ? (isDark
+                                          ? Colors.brown[800]
+                                          : Colors.brown[50])
+                                      : (isDark
+                                          ? Colors.brown[900]
+                                          : Colors
+                                              .white); // Row color based on theme
 
                                   return DataRow(
-                                    color: MaterialStateColor.resolveWith(
-                                        (states) => color!),
+                                    color: WidgetStateProperty.all(color),
                                     cells: [
                                       DataCell(SizedBox(
                                         width: columnWidth,
@@ -120,7 +132,10 @@ class BookingListView extends ConsumerWidget {
                                         child: Text(
                                           booking.time,
                                           style: TextStyle(
-                                            color: Colors.brown[700],
+                                            color: isDark
+                                                ? Colors.white70
+                                                : Colors.brown[
+                                                    700], // Text color based on theme
                                             fontWeight: FontWeight.w500,
                                           ),
                                         ),
@@ -130,28 +145,32 @@ class BookingListView extends ConsumerWidget {
                                         child: Text(
                                           formattedDate,
                                           style: TextStyle(
-                                            color: Colors.brown[700],
+                                            color: isDark
+                                                ? Colors.white70
+                                                : Colors.brown[
+                                                    700], // Text color based on theme
                                             fontWeight: FontWeight.w500,
                                           ),
                                         ),
                                       )),
                                       DataCell(SizedBox(
-                                        width: columnWidth - 10, // Adjust width for alignment
+                                        width: columnWidth - 10,
                                         child: FittedBox(
                                           fit: BoxFit.scaleDown,
                                           child: ElevatedButton(
                                             onPressed: () {
-                                              ref
-                                                  .read(
-                                                      bookingListViewModelProvider
-                                                          .notifier)
-                                                  .openKhaltiView();
+                                              // Show the Khalti Payment Dialog
+                                              showDialog(
+                                                context: context,
+                                                builder: (context) =>
+                                                    const KhaltiPaymentDialog(),
+                                              );
                                             },
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor: Colors.brown,
                                               padding:
                                                   const EdgeInsets.symmetric(
-                                                horizontal: 15, // Reduced padding
+                                                horizontal: 15,
                                                 vertical: 12,
                                               ),
                                               shape: RoundedRectangleBorder(
@@ -176,51 +195,6 @@ class BookingListView extends ConsumerWidget {
                         );
                       },
                     ),
-    );
-  }
-
-  void _handleProceedToPayment(BuildContext context, String bookingId) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Choose a Payment Method'),
-        content: const Text('Please select a payment method:'),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-              _updatePaymentMethod(context, bookingId, 'Pay on arrival');
-            },
-            child: const Text('Pay on Arrival'),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-              _updatePaymentMethod(context, bookingId, 'Khalti Payment');
-            },
-            child: const Text('Khalti Payment'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _updatePaymentMethod(
-      BuildContext context, String bookingId, String paymentMethod) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Payment Method Selected'),
-        content: Text('You have selected $paymentMethod.'),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: const Text('Close'),
-          ),
-        ],
-      ),
     );
   }
 }

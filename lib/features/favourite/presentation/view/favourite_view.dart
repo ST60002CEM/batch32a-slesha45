@@ -1,4 +1,5 @@
 import 'package:final_assignment/app/contants/api_endpoint.dart';
+import 'package:final_assignment/core/common/provider/theme_view_model_provider.dart';
 import 'package:final_assignment/core/common/show_my_snackbar.dart';
 import 'package:final_assignment/features/favourite/favourite_provider.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +11,15 @@ class FavouriteView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final favoriteProperties = ref.watch(favoritePropertiesProvider);
+    final isDark =
+        ref.watch(themeViewModelProvider); // Watch the theme provider
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My wishlists'),
+        title: const Text('My Wishlists'),
+        backgroundColor: isDark
+            ? Colors.black
+            : Colors.brown, // Change app bar color based on theme
       ),
       body: ListView.builder(
         itemCount: favoriteProperties.length,
@@ -24,11 +30,14 @@ class FavouriteView extends ConsumerWidget {
             child: Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: isDark
+                    ? Colors.grey[850]
+                    : Colors.white, // Background color based on theme
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
+                    color:
+                        isDark ? Colors.black54 : Colors.grey.withOpacity(0.5),
                     spreadRadius: 2,
                     blurRadius: 4,
                   ),
@@ -52,9 +61,12 @@ class FavouriteView extends ConsumerWidget {
                       children: [
                         Text(
                           property.propertyTitle,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
+                            color: isDark
+                                ? Colors.white
+                                : Colors.black, // Text color based on theme
                           ),
                         ),
                         const SizedBox(height: 4),
@@ -62,7 +74,10 @@ class FavouriteView extends ConsumerWidget {
                           property.propertyLocation,
                           style: TextStyle(
                             fontSize: 16,
-                            color: Colors.grey[600],
+                            color: isDark
+                                ? Colors.white70
+                                : Colors.grey[
+                                    600], // Location text color based on theme
                           ),
                         ),
                         const SizedBox(height: 4),
