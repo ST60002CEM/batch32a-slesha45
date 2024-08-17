@@ -1,119 +1,98 @@
+import 'package:final_assignment/app/contants/api_endpoint.dart';
+import 'package:final_assignment/core/common/show_my_snackbar.dart';
+import 'package:final_assignment/features/favourite/favourite_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class FavouriteView extends StatelessWidget {
+class FavouriteView extends ConsumerWidget {
   const FavouriteView({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    // Static list of favorite properties
-    final favouriteProperties = [
-      {
-        'id': '1',
-        'title': 'House on sale',
-        'category': 'House',
-        // 'image': 'https://via.placeholder.com/150',
-      },
-      {
-        'id': '2',
-        'title': 'Office Building',
-        'category': 'Building',
-        // 'image': 'https://via.placeholder.com/150',
-      },
-      {
-        'id': '3',
-        'title': 'To-let Building',
-        'category': 'Building',
-        // 'image': 'https://via.placeholder.com/150',
-      },
-    ];
+  Widget build(BuildContext context, WidgetRef ref) {
+    final favoriteProperties = ref.watch(favoritePropertiesProvider);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Favourites'),
-        elevation: 0,
+        title: const Text('My wishlists'),
       ),
-      body: favouriteProperties.isEmpty
-          ? const Center(
-              child: Text(
-                'No favourite properties',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-              ),
-            )
-          : ListView.builder(
-              itemCount: favouriteProperties.length,
-              itemBuilder: (context, index) {
-                final property = favouriteProperties[index];
-                return _buildPropertyCard(context, property);
-              },
-            ),
-    );
-  }
-
-  Widget _buildPropertyCard(
-      BuildContext context, Map<String, String> property) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: Slidable(
-        key: Key(property['id']!),
-        endActionPane: ActionPane(
-          motion: const ScrollMotion(),
-          dismissible: DismissiblePane(onDismissed: () {
-            // Handle property removal (static page won't actually remove the item)
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Property removed from favourites'),
-                backgroundColor: Colors.red,
-              ),
-            );
-          }),
-          children: [
-            SlidableAction(
-              onPressed: (context) {
-                // Handle property removal (static page won't actually remove the item)
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Property removed from favourites'),
-                    backgroundColor: Colors.red,
+      body: ListView.builder(
+        itemCount: favoriteProperties.length,
+        itemBuilder: (context, index) {
+          final property = favoriteProperties[index];
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+            child: Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 2,
+                    blurRadius: 4,
                   ),
-                );
-              },
-              backgroundColor: Colors.red,
-              foregroundColor: Colors.white,
-              icon: Icons.delete,
-              label: 'Remove',
+                ],
+              ),
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.network(
+                      '${ApiEndpoints.imageUrl}${property.propertyImage}',
+                      width: 80,
+                      height: 80,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          property.propertyTitle,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          property.propertyLocation,
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          "Rs ${property.propertyPrice}",
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Colors.red,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.delete_outline_sharp,
+                        color: Colors.red),
+                    onPressed: () {
+                      ref
+                          .read(favoritePropertiesProvider.notifier)
+                          .removeProperty(property);
+                      showMySnackBar(
+                          message:
+                              "${property.propertyTitle} removed from favourites");
+                    },
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
-        child: Card(
-          elevation: 2,
-          child: ListTile(
-            contentPadding: const EdgeInsets.all(16),
-            // leading: CircleAvatar(
-            //   radius: 30,
-            //   backgroundImage: NetworkImage(property['image']!),
-            // ),
-            title: Text(
-              property['title']!,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-            ),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 4),
-                Text(
-                  property['category']!,
-                  style: TextStyle(color: Colors.grey[600]),
-                ),
-              ],
-            ),
-            trailing:
-                const Icon(Icons.delete_outline_outlined, color: Colors.red),
-            onTap: () {
-              // Static page won't navigate anywhere
-            },
-          ),
-        ),
+          );
+        },
       ),
     );
   }
