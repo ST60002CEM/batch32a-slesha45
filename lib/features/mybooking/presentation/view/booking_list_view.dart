@@ -20,46 +20,161 @@ class BookingListView extends ConsumerWidget {
               ? Center(child: Text('Error: ${state.error}'))
               : state.bookings.isEmpty
                   ? const Center(child: Text('No bookings available'))
-                  : SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: DataTable(
-                          columnSpacing: 16.0,
-                          columns: const [
-                            // DataColumn(label: Text('Property')),
-                            DataColumn(label: Text('Time')),
-                            DataColumn(label: Text('Date')),
-                            // DataColumn(label: Text('Payment Method')),
-                            DataColumn(label: Text('Action')),
-                          ],
-                          rows: state.bookings.map((booking) {
-                            final formattedDate =
-                                DateFormat('yyyy-MM-dd').format(booking.date);
-                            return DataRow(cells: [
-                              // DataCell(Text(booking.property)),
-                              DataCell(Text(booking.time)),
-                              DataCell(Text(formattedDate)),
-                              // DataCell(Text(booking.paymentMethod)),
-                              DataCell(
-                                ElevatedButton(
-                                  onPressed: () {
-                                    // _handleProceedToPayment(
-                                    //   context,
-                                    //   booking.id!,
-                                    // );
-                                    ref
-                                        .read(bookingListViewModelProvider
-                                            .notifier)
-                                        .openKhaltiView();
-                                  },
-                                  child: const Text('Proceed to payment'),
-                                ),
+                  : LayoutBuilder(
+                      builder: (context, constraints) {
+                        final columnWidth = constraints.maxWidth / 4;
+
+                        return SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: DataTable(
+                              border: TableBorder.all(
+                                color: Colors.grey.withOpacity(0.3),
+                                width: 1.0,
                               ),
-                            ]);
-                          }).toList(),
-                        ),
-                      ),
+                              columnSpacing: 0.0, // Reduced spacing for closer alignment
+                              headingRowHeight: 60,
+                              dataRowHeight: 56,
+                              headingRowColor: MaterialStateColor.resolveWith(
+                                  (states) => Colors.brown[200]!),
+                              columns: [
+                                DataColumn(
+                                  label: SizedBox(
+                                    width: columnWidth,
+                                    child: const Text(
+                                      'Property',
+                                      style: TextStyle(
+                                        color: Colors.brown,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                DataColumn(
+                                  label: SizedBox(
+                                    width: columnWidth,
+                                    child: const Text(
+                                      'Time',
+                                      style: TextStyle(
+                                        color: Colors.brown,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                DataColumn(
+                                  label: SizedBox(
+                                    width: columnWidth,
+                                    child: const Text(
+                                      'Date',
+                                      style: TextStyle(
+                                        color: Colors.brown,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                DataColumn(
+                                  label: SizedBox(
+                                    width: columnWidth - 10, // Slightly reduce the width
+                                    child: const Text(
+                                      'Action',
+                                      style: TextStyle(
+                                        color: Colors.brown,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                              rows: List<DataRow>.generate(
+                                state.bookings.length,
+                                (index) {
+                                  final booking = state.bookings[index];
+                                  final formattedDate = DateFormat('yyyy-MM-dd')
+                                      .format(booking.date);
+                                  final color = index.isEven
+                                      ? Colors.brown[50]
+                                      : Colors.white;
+
+                                  return DataRow(
+                                    color: MaterialStateColor.resolveWith(
+                                        (states) => color!),
+                                    cells: [
+                                      DataCell(SizedBox(
+                                        width: columnWidth,
+                                        child: const Text(
+                                          'House on sale', // Replace with actual property name if needed
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      )),
+                                      DataCell(SizedBox(
+                                        width: columnWidth,
+                                        child: Text(
+                                          booking.time,
+                                          style: TextStyle(
+                                            color: Colors.brown[700],
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      )),
+                                      DataCell(SizedBox(
+                                        width: columnWidth,
+                                        child: Text(
+                                          formattedDate,
+                                          style: TextStyle(
+                                            color: Colors.brown[700],
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      )),
+                                      DataCell(SizedBox(
+                                        width: columnWidth - 10, // Adjust width for alignment
+                                        child: FittedBox(
+                                          fit: BoxFit.scaleDown,
+                                          child: ElevatedButton(
+                                            onPressed: () {
+                                              ref
+                                                  .read(
+                                                      bookingListViewModelProvider
+                                                          .notifier)
+                                                  .openKhaltiView();
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: Colors.brown,
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                horizontal: 15, // Reduced padding
+                                                vertical: 12,
+                                              ),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                              textStyle: const TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            child: const Text('Pay'),
+                                          ),
+                                        ),
+                                      )),
+                                    ],
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        );
+                      },
                     ),
     );
   }
@@ -92,8 +207,6 @@ class BookingListView extends ConsumerWidget {
 
   void _updatePaymentMethod(
       BuildContext context, String bookingId, String paymentMethod) {
-    // Implement the logic to update the payment method in your booking
-    // You might want to call a method in your ViewModel to perform the update
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
