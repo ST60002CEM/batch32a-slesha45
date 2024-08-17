@@ -78,7 +78,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
-            label: 'Favourite',
+            label: 'Wishlist',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.book_online),
