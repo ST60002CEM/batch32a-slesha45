@@ -13,13 +13,13 @@ class RegisterView extends ConsumerStatefulWidget {
 
 class _RegisterViewState extends ConsumerState<RegisterView> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController firstNameController = TextEditingController();
-  final TextEditingController lastNameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController firstNameController = TextEditingController(text: 'Slesha');
+  final TextEditingController lastNameController = TextEditingController(text: 'Dahal');
+  final TextEditingController emailController = TextEditingController(text: 'slesha@gmail.com');
+  final TextEditingController phoneController = TextEditingController(text: '9841297471');
+  final TextEditingController passwordController = TextEditingController(text: 'slesha123');
   final TextEditingController confirmPasswordController =
-      TextEditingController();
+      TextEditingController(text: 'slesha123');
 
   @override
   Widget build(BuildContext context) {
