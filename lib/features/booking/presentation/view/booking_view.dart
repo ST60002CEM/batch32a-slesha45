@@ -14,9 +14,9 @@ class BookingView extends ConsumerStatefulWidget {
 
 class _BookingViewState extends ConsumerState<BookingView> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController(text: 'Slesha Dahal');
+  final TextEditingController _emailController = TextEditingController(text: 'slesha@gmail.com');
+  final TextEditingController _phoneController = TextEditingController(text:  '9841297471');
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _timeController = TextEditingController();
 
