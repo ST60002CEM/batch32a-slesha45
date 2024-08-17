@@ -6,7 +6,7 @@ class AuthEntity extends Equatable {
   final String fName;
   final String lName;
   final String email;
-  final String phone;
+  final int phone;
   final String password;
  
   const AuthEntity({

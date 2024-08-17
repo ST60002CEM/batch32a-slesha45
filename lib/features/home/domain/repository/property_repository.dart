@@ -9,4 +9,5 @@ final propertyRepositoryProvider = Provider<IPropertyRepository>((ref)=>
 
 abstract class IPropertyRepository {
   Future<Either<Failure,List<PropertyEntity>>> pagination(int page, int limit);
+  Future<Either<Failure, PropertyEntity>> getPropertyById(String id);
 }

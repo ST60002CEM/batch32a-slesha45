@@ -1,4 +1,3 @@
-
 import 'package:final_assignment/features/home/domain/usecases/property_usecase.dart';
 import 'package:final_assignment/features/home/presentation/state/property_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,7 +18,7 @@ class PropertyViewmodel extends StateNotifier<PropertyState> {
 
   Future resetState() async {
     state = PropertyState.initial();
-    getProperty();
+     await getProperty();
   }
 
   Future getProperty() async {
@@ -48,8 +47,4 @@ class PropertyViewmodel extends StateNotifier<PropertyState> {
       );
     }
   }
-  
 }
-
-
-

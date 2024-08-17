@@ -96,6 +96,17 @@ class _LoginViewState extends ConsumerState<LoginView> {
                       ),
                     ),
                   ),
+                  Center(
+                    child: IconButton(
+                      icon: const Icon(Icons.fingerprint, size: 75),
+                      color: Colors.black,
+                      onPressed: () {
+                        ref
+                            .read(authViewModelProvider.notifier)
+                            .fingerPrintLogin();
+                      },
+                    ),
+                  ),
                   const SizedBox(height: 16.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

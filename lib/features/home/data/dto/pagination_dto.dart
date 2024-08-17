@@ -1,4 +1,3 @@
-
 import 'package:final_assignment/features/home/data/model/property_api_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 

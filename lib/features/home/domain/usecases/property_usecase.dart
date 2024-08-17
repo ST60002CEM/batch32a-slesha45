@@ -14,7 +14,12 @@ class PropertyUsecase {
 
   PropertyUsecase({required this.propertyRepository});
 
-  Future<Either<Failure, List<PropertyEntity>>> pagination(int page, int limit)  {
-    return propertyRepository.pagination(page, limit);
+  Future<Either<Failure, List<PropertyEntity>>> pagination(int? page, int? limit)  {
+    return propertyRepository.pagination(page??1, limit??6);
+  }
+
+  // get single product
+  Future<Either<Failure, PropertyEntity>> getPropertyById(String id) {
+    return propertyRepository.getPropertyById(id);
   }
 }

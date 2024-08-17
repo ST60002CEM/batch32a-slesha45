@@ -55,7 +55,7 @@ class PropertyRemoteDataSource {
           },
         ),
       );
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
         final paginationDto = PaginationDto.fromJson(response.data);
         return Right(propertyApiModel.toEntityList(paginationDto.property));
       }
@@ -64,6 +64,45 @@ class PropertyRemoteDataSource {
           statusCode: response.statusCode.toString()));
     } on DioException catch (e) {
       return Left(Failure(error: e.error.toString()));
+    }
+  }
+
+   Future<Either<Failure, PropertyEntity>> getSingleProperty(
+      String propertyId) async {
+    try {
+      final tokenResult = await userSharedPrefs.getUserToken();
+      final token = tokenResult.fold(
+        (failure) => null,
+        (token) => token,
+      );
+ 
+      if (token == null) {
+        return Left(Failure(error: 'Invalid token'));
+      }
+ 
+      final response = await dio.get(
+        '${ApiEndpoints.getSingleProperty}/$propertyId',
+        options: Options(
+          headers: {
+            'authorization': 'Bearer $token',
+          },
+        ),
+      );
+ 
+      print('Response status code: ${response.statusCode}');
+      print('Response data: ${response.data}');
+ 
+      if (response.statusCode == 200) {
+        final property = PropertyApiModel.fromJson(response.data['property']);
+        return Right(property.toEntity());
+      }
+ 
+      return Left(Failure(
+        error: response.data['message'] ?? 'Unexpected error',
+        statusCode: response.statusCode.toString(),
+      ));
+    } on DioException catch (e) {
+      return Left(Failure(error: e.toString()));
     }
   }
 }
