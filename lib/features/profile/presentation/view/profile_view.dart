@@ -5,6 +5,7 @@ import 'package:final_assignment/features/profile/presentation/view_model/profil
 import 'package:final_assignment/features/profile/presentation/widgets/profile_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 class ProfileView extends ConsumerStatefulWidget {
   const ProfileView({super.key});
 
@@ -30,18 +31,38 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
         centerTitle: true,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(vertical: 20),
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 20),
-            profileState.isLoading
-                ? const CircularProgressIndicator()
-                : Text("${profileState.authEntity?.fName}"
-                    " "
-                    "${profileState.authEntity?.lName}"),
+            // User Profile Information
+            Center(
+              child: Column(
+                children: [
+                  const SizedBox(height: 10),
+                  Text(
+                    "${profileState.authEntity?.fName} ${profileState.authEntity?.lName}",
+                    style: const TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    "${profileState.authEntity?.email}",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey[600],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 30),
+            // Profile Menus
             ProfileMenu(
               text: "Enable Finger Print",
-              icon: "assets/icons/fingerprint.svg",
+              icon: Icons.fingerprint_outlined,
               press: () {
                 if (mounted) {
                   ref
@@ -50,9 +71,10 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                 }
               },
             ),
+            const SizedBox(height: 15),
             ProfileMenu(
               text: "Log Out",
-              icon: "assets/icons/logout.svg",
+              icon: Icons.logout_outlined,
               press: () {
                 if (mounted) {
                   AwesomeDialog(
@@ -70,28 +92,38 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                 }
               },
             ),
+            const SizedBox(height: 15),
+            // Dark/Light Mode Toggle
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: TextButton(
-                style: TextButton.styleFrom(
-                  foregroundColor: Colors.brown,
-                  padding: const EdgeInsets.all(20),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15)),
-                  backgroundColor: Colors.brown.withOpacity(0.2),
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.brown.withOpacity(0.1),
                 ),
-                onPressed: () {},
-                child: Row(
-                  children: [
-                    const SizedBox(width: 20),
-                    const Expanded(child: Text("Dark Mode/Light Mode")),
-                    Switch(
-                      value: ref.watch(themeViewModelProvider),
-                      onChanged: (value) {
-                        ref.read(themeViewModelProvider.notifier).changeTheme();
-                      },
-                    ),
-                  ],
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 20, horizontal: 20),
+                  ),
+                  onPressed: () {},
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "Dark Mode/Light Mode",
+                        style: TextStyle(fontSize: 16, color: Colors.brown),
+                      ),
+                      Switch(
+                        value: ref.watch(themeViewModelProvider),
+                        onChanged: (value) {
+                          ref
+                              .read(themeViewModelProvider.notifier)
+                              .changeTheme();
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
